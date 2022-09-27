@@ -1,33 +1,26 @@
+using MatchYourGarden.DataModel;
+using MatchYourGarden.Persistence;
+using MatchYourGarden.Services;
+using MatchYourGarden.Services.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MatchYourGarden.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PlantController : ControllerBase
+    public class PlantController : BaseController
     {
-        private static readonly string[] Summaries = new[]
+        private readonly IPlantService _plantService;
+        
+        public PlantController(ILogger<PlantController> logger, IDataContext dataContext, IPlantService service) : base(logger, dataContext)
         {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
-        private readonly ILogger<PlantController> _logger;
-
-        public PlantController(ILogger<PlantController> logger)
-        {
-            _logger = logger;
+            _plantService = service;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet(Name = "Get")]
+        public ServiceResponse<Plant> Get(Guid id)
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return _plantService.GetEntity(id);
         }
     }
 }

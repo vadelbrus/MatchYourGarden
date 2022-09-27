@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MatchYourGarden.DataModel\MatchYourGarden.DataModel.csproj" />
     <ProjectReference Include="..\MatchYourGarden.Persistence\MatchYourGarden.Persistence.csproj" />
+    <ProjectReference Include="..\MatchYourGarden.Services\MatchYourGarden.Services.csproj" />
   </ItemGroup>
 
 </Project>

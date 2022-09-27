@@ -1,4 +1,6 @@
 using MatchYourGarden.Persistence;
+using MatchYourGarden.Services;
+using MatchYourGarden.Services.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +15,9 @@ builder.Services.AddSwaggerGen();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
 
-//builder.Services.AddScoped<IDataContext, DataContext>();
+builder.Services.AddScoped<IDataContext, DataContext>();
+builder.Services.AddScoped<IPlantService, PlantService>();
+builder.Services.AddScoped<IGardenService, GardenService>();
 
 var app = builder.Build();
 

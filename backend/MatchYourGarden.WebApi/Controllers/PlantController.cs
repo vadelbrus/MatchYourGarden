@@ -19,11 +19,18 @@ namespace MatchYourGarden.WebApi.Controllers
             _plantService = service;
         }
 
-        [HttpGet(Name = "Get")]
+        [HttpGet("get/{id}")]
         public IActionResult Get(Guid id)
         {
             var response = _plantService.GetEntity(id);
             return ApiResponse<Plant, PlantDto>(response);
+        }
+
+        [HttpGet("getall/{page}/{count}")]
+        public IActionResult GetAll(int page, int count)
+        {
+            var response = _plantService.GetAll(page, count);
+            return ApiResponse<Plant[], PlantDto[]>(response);
         }
     }
 }

@@ -29,5 +29,11 @@ namespace MatchYourGarden.Services
 
             return new ServiceResponse<T>($"Entity {typeof(T)} with id {id} not found.", 404);
         }
+
+        public ServiceResponse<T[]> GetAll(int page, int count)
+        {
+            var entities = _dataContext.Entities<T>().Skip(page * count).Take(count).ToArray();
+            return new ServiceResponse<T[]>(entities);
+        }
     }
 }

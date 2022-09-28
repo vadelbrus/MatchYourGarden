@@ -1,3 +1,5 @@
+using AutoMapper;
+using MatchYourGarden.Dtos.Mapping;
 using MatchYourGarden.Persistence;
 using MatchYourGarden.Services;
 using MatchYourGarden.Services.Contracts;
@@ -16,8 +18,13 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IDataContext, DataContext>();
+
 builder.Services.AddScoped<IPlantService, PlantService>();
 builder.Services.AddScoped<IGardenService, GardenService>();
+
+// Add the AutoMapper to our DI container
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var app = builder.Build();
 

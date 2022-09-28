@@ -20,11 +20,10 @@ namespace MatchYourGarden.WebApi.Controllers
         }
 
         [HttpGet(Name = "Get")]
-        public ServiceResponse<PlantDto> Get(Guid id)
+        public IActionResult Get(Guid id)
         {
             var response = _plantService.GetEntity(id);
-            PlantDto dto = _mapper.Map<Plant, PlantDto>(response.Data);
-            return new ServiceResponse<PlantDto>(dto);
+            return ApiResponse<Plant, PlantDto>(response);
         }
     }
 }

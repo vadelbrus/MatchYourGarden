@@ -2,6 +2,7 @@ using AutoMapper;
 using MatchYourGarden.Persistence;
 using MatchYourGarden.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace MatchYourGarden.WebApi.Controllers
 {
@@ -19,5 +20,104 @@ namespace MatchYourGarden.WebApi.Controllers
             _dataContext = dataContext;
             _mapper = mapper;
         }
+
+        protected IActionResult ApiResponse<TModel, TDto>(ServiceResponse<TModel> serviceResponse)
+        {
+            if (serviceResponse.StatusCode == 200)
+            {
+                var dto = _mapper.Map<TModel, TDto>(serviceResponse.Data);
+                return RequestResult(serviceResponse, new Response<TDto>(dto));
+            }
+
+            return Error(serviceResponse.StatusCode, serviceResponse.ErrorMessage);
+        }
+
+        private IActionResult RequestResult(IServiceResponse response, IResponse result)
+        {
+            return Ok(result);
+        }
+
+        private IActionResult Error(int statusCode, string error)
+        {
+            return StatusCode(statusCode, new Response(error));
+        }
+    }
+
+    public interface IResponse
+    {
+
+    }
+
+    public class Response : IResponse
+    {
+        public Response()
+        {
+            ServerTimeUtc = DateTime.UtcNow;
+            Succeeded = true;
+        }
+
+        public Response(bool succeeded) : this()
+        {
+            Succeeded = succeeded;
+        }
+
+        public Response(string errorMessage) : this()
+        {
+            Message = errorMessage;
+            Succeeded = false;
+        }
+
+        public Response(ModelStateDictionary modelstate) : this()
+        {
+            Message = string.Join(", ", GetModelStateError(modelstate));
+            Succeeded = string.IsNullOrWhiteSpace(Message);
+        }
+
+        public string Message { get; set; }
+        public bool Succeeded { get; set; }
+        public DateTime ServerTimeUtc { get; set; }
+
+
+        private protected IEnumerable<string> GetModelStateError(ModelStateDictionary modelstate)
+        {
+            foreach (var error in modelstate.Values.SelectMany(m => m.Errors))
+            {
+                if (string.IsNullOrEmpty(error.ErrorMessage))
+                    yield return error.Exception.Message;
+                else
+                    yield return error.ErrorMessage;
+            }
+        }
+    }
+
+    public class Response<T> : Response
+    {
+        public object Data { get; set; }
+
+        public Response() : base()
+        {
+        }
+
+        public Response(T data) : base()
+        {
+            Data = data;
+        }
+
+        public Response(T data, string message) : this(data)
+        {
+            Message = message;
+        }
+
+        public Response(IEnumerable<T> data) : base()
+        {
+            Data = data;
+        }
+
+        public Response(IEnumerable<T> data, string message) : this(data)
+        {
+            Message = message;
+        }
+
+        
     }
 }

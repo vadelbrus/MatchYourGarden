@@ -26,11 +26,12 @@ namespace MatchYourGarden.WebApi.Controllers
             return ApiResponse<Plant, PlantDto>(response);
         }
 
-        [HttpGet("getall/{page}/{count}")]
-        public IActionResult GetAll(int page, int count)
+        [HttpGet("getall/{page}/{perPage}")]
+        public IActionResult GetAll(int page, int perPage)
         {
-            var response = _plantService.GetAll(page, count);
-            return ApiResponse<Plant[], PlantListItemDto[]>(response);
+            var response = _plantService.GetAll(page, perPage);
+            var totalCount = _plantService.GetCount();
+            return ApiPaginatedResultResponse<Plant[], PlantListItemDto[]>(response, page, perPage, totalCount);
         }
     }
 }

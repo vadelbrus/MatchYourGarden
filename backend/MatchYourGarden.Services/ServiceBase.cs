@@ -35,5 +35,10 @@ namespace MatchYourGarden.Services
             var entities = _dataContext.Entities<T>().Skip(page * count).Take(count).ToArray();
             return new ServiceResponse<T[]>(entities);
         }
+
+        public int GetCount()
+        {
+            return _dataContext.Entities<T>().Count();
+        }
     }
 }

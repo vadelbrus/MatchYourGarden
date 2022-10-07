@@ -32,6 +32,17 @@ namespace MatchYourGarden.WebApi.Controllers
             return Error(serviceResponse.StatusCode, serviceResponse.ErrorMessage);
         }
 
+        protected IActionResult ApiPaginatedResultResponse<TModel, TDto>(ServiceResponse<TModel> serviceResponse, int page, int count, int totalCount)
+        {
+            if (serviceResponse.StatusCode == 200)
+            {
+                var dto = _mapper.Map<TModel, TDto>(serviceResponse.Data);
+                return RequestResult(serviceResponse, new PaginatedResponse<TDto>(dto, page, count, totalCount));
+            }
+
+            return Error(serviceResponse.StatusCode, serviceResponse.ErrorMessage);
+        }
+
         private IActionResult RequestResult(IServiceResponse response, IResponse result)
         {
             return Ok(result);
@@ -116,8 +127,21 @@ namespace MatchYourGarden.WebApi.Controllers
         public Response(IEnumerable<T> data, string message) : this(data)
         {
             Message = message;
+        }        
+    }
+
+    public class PaginatedResponse<T> : Response<T>
+    {
+        public int Page { get; set; }
+        public int PerPage { get; set; }
+        public int TotalCount { get; set; }
+
+        public PaginatedResponse(T data, int page, int perPage, int totalCount) : base(data)
+        {
+            Page = page;
+            PerPage = perPage;
+            TotalCount = totalCount;
         }
 
-        
     }
 }

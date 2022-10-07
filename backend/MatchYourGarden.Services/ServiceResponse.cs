@@ -45,4 +45,20 @@
         {
         }        
     }
+
+    public class PaginatedResultServiceResponse<T> : ServiceResponse<T>
+    {
+        public int Page { get; set; }
+        public int PerPage { get; set; }
+        public int TotalCount { get; set; }
+
+        public PaginatedResultServiceResponse(T data) : base(data)
+        {
+                        
+        }
+
+        public PaginatedResultServiceResponse(string errorMessage, int statusCode) : base(errorMessage, statusCode)
+        {
+        }
+    }
 }

@@ -30,7 +30,7 @@ namespace MatchYourGarden.WebApi.Controllers
         public IActionResult GetAll(int page, int count)
         {
             var response = _plantService.GetAll(page, count);
-            return ApiResponse<Plant[], PlantDto[]>(response);
+            return ApiResponse<Plant[], PlantListItemDto[]>(response);
         }
     }
 }

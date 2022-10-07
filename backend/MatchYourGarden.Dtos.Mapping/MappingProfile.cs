@@ -8,6 +8,7 @@ namespace MatchYourGarden.Dtos.Mapping
         public MappingProfile()
         {
             CreateMap<Plant, PlantDto>();
+            CreateMap<Plant, PlantListItemDto>();
         }
     }
 }

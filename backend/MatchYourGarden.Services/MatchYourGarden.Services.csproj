@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MatchYourGarden.Dtos\MatchYourGarden.Dtos.csproj" />
     <ProjectReference Include="..\MatchYourGarden.Persistence\MatchYourGarden.Persistence.csproj" />
   </ItemGroup>
 

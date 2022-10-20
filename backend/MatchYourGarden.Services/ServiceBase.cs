@@ -36,6 +36,21 @@ namespace MatchYourGarden.Services
             return new ServiceResponse<T[]>(entities);
         }
 
+        public ServiceResponse Create(T obj)
+        {
+            try
+            {
+                _dataContext.Entities<T>().Add(obj);
+                _dataContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse(e.Message, 500);
+            }
+
+            return new ServiceResponse();
+        }
+
         public int GetCount()
         {
             return _dataContext.Entities<T>().Count();

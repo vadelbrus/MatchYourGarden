@@ -21,6 +21,16 @@ namespace MatchYourGarden.WebApi.Controllers
             _mapper = mapper;
         }
 
+        protected IActionResult ApiResponse(ServiceResponse serviceResponse)
+        {
+            if (serviceResponse.StatusCode == 200)
+            {
+                return Ok();
+            }
+
+            return Error(serviceResponse.StatusCode, serviceResponse.ErrorMessage);
+        }
+
         protected IActionResult ApiResponse<TModel, TDto>(ServiceResponse<TModel> serviceResponse)
         {
             if (serviceResponse.StatusCode == 200)

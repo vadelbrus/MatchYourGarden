@@ -47,6 +47,6 @@ namespace MatchYourGarden.Persistence
 
                 obj.DateUpdated = currentDate;
             }
-        }
+        }        
     }
 }

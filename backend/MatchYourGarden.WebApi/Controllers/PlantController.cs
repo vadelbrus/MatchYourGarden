@@ -33,5 +33,12 @@ namespace MatchYourGarden.WebApi.Controllers
             var totalCount = _plantService.GetCount();
             return ApiPaginatedResultResponse<Plant[], PlantListItemDto[]>(response, page, perPage, totalCount);
         }
+
+        [HttpPost("create")]
+        public IActionResult Create([FromBody] Plant plant)
+        {
+            var response = _plantService.Create(plant);
+            return ApiResponse(response);
+        }
     }
 }

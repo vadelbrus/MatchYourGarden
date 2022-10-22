@@ -32,8 +32,23 @@ namespace MatchYourGarden.Services
 
         public ServiceResponse<T[]> GetAll(int page, int count)
         {
-            var entities = _dataContext.Entities<T>().Skip(page * count).Take(count).ToArray();
+            var entities = _dataContext.Entities<T>().OrderBy(x => x.Name).Skip(page * count).Take(count).ToArray();
             return new ServiceResponse<T[]>(entities);
+        }
+
+        public ServiceResponse Create(T obj)
+        {
+            try
+            {
+                _dataContext.Entities<T>().Add(obj);
+                _dataContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse(e.Message, 500);
+            }
+
+            return new ServiceResponse();
         }
 
         public int GetCount()

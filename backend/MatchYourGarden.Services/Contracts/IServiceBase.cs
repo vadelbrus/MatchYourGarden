@@ -5,5 +5,6 @@
         public ServiceResponse<T>? GetEntity(Guid id);
         public ServiceResponse<T[]> GetAll(int page, int count);
         public int GetCount();
+        public ServiceResponse Create(T obj);
     }
 }

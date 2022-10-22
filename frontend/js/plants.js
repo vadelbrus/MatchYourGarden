@@ -54,24 +54,6 @@ export const getPlants = async (url, skip, count) => {
 
 }
 
-// export const generatePlantsTable = (plantsData, parentElement)=> {
-//     let table = '<table class="section__plants-table plants-table">';
-//     table +='<thead class="plants-table__head"><tr class="plants-table__row"><th class="plants-table__header">Name</th><th class="plants-table__header">Latin Name</th></tr></thead><tbody class="plants-table__body">';
-//     plantsData.forEach((plantsData) => {
-//         table+=`<tr class="plants-table__row">                    
-//                     <td class="plants-table__cell">${plantsData.name}</td>
-//                     <td class="plants-table__cell">${plantsData.latinName}</td>
-//                     <td class="plants-table__cell"><a plants-table__link-wrapper><a plants-table__link>details</a></a></td>
-//             </tr>`;
-//     });
-
-//     table+= '</tbody></table>';
-//     parentElement.innerHTML = table;
-
-
-    
-// }
-
 export const generatePlantsList = (plantsData, parentElement)=> {
     const ul = document.createElement('ul');
     ul.classList.add('section__plants-list', 'plants-list');
@@ -86,18 +68,22 @@ export const generatePlantsList = (plantsData, parentElement)=> {
     });
     
     parentElement.appendChild(ul);
-
-
-    
+   
 }
 
-export const displayPlants = async (url)=> {
-    const plants = await getPlants(url, 0, 10);
+export const displayPlants = async (url, skip, count)=> {
+    const plants = await getPlants(url, skip, count);
     const plantsData = plants.data;
-    const parent = document.querySelector(".main__section");
+    console.log(plants)
+    const parent = document.querySelector(".pagination__list");
+    parent.innerHTML = "";
      
     generatePlantsList(plantsData, parent);
     
+    return {
+        skip: skip,
+        count: count
+    }
   }
 
   export const getIdFromParams = (value)=> {
@@ -124,3 +110,68 @@ export const displayPlants = async (url)=> {
     </article>`
  
  };
+
+const appendPaginationNumber = (index)=> {
+    const numbersContainer = document.querySelector(".pagination__numbers");
+    const pageNumber = document.createElement("button");
+    pageNumber.classList.add("pagination__number");
+    pageNumber.dataset.index = index;
+    pageNumber.setAttribute("aria-label", "Page " + index);
+    pageNumber.innerText = index + 1;
+    numbersContainer.appendChild(pageNumber);
+
+}
+
+const getPaginationNumbers = (numbersPerPage)=> {
+    for(let i = 0; i <= numbersPerPage; i++) {
+        appendPaginationNumber(i);
+    }
+}
+
+const setCurrentPage = (pageNumber)=>{
+    page = pageNumber;
+    return page;
+
+}
+
+export const pagination = async (url, skip, count) => {
+    
+    // await displayPlants(url, skip, count);
+    // const plantsData = await getPlants(url);
+     
+    // console.log(plantsData)
+    // const { page, perPage, totalCount } = plantsData;
+    const prevBtn =  document.querySelector(".pagination__prev-btn");
+    const nextBtn =  document.querySelector(".pagination__next-btn");
+    
+    getPaginationNumbers(count);
+
+        const paginationNumbers = document.querySelectorAll(".pagination__number");
+
+        paginationNumbers.forEach(number => {
+       
+            number.addEventListener('click', async (e) => {
+                e.preventDefault();
+                const currentPage = e.target.dataset.index;
+                await displayPlants(url, currentPage, count);
+                
+                paginationNumbers.forEach( (number)=> {
+                    number.classList.remove("pagination__number--active");
+                })
+
+                number.classList.add("pagination__number--active");
+            
+    })
+    })
+
+    // const paginatedList =  document.querySelector(".paginated__list");
+    // const pages = Math.ceil(totalCount / perPage);
+    // let currentPage;
+
+    
+    
+    // console.log(pages)
+    // console.log(perPage, totalCount);
+    // console.log(plantsData)
+    
+ }

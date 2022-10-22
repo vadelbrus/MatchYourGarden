@@ -299,3 +299,19 @@ html {
     justify-content: center;
     align-items: center;
 }
+
+.pagination {
+
+    &__number {
+        color: red;
+        
+        &--active {
+            color: red;
+            background-color: green;
+        }
+
+    }
+
+   
+
+}

@@ -9,6 +9,8 @@ namespace MatchYourGarden.Dtos.Mapping
         {
             CreateMap<Plant, PlantDto>();
             CreateMap<Plant, PlantListItemDto>();
+            CreateMap<Garden, GardenDto>();
+            CreateMap<Garden, GardenListItemDto>();
         }
     }
 }

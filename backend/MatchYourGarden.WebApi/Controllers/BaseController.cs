@@ -10,11 +10,11 @@ namespace MatchYourGarden.WebApi.Controllers
     //[Route("[controller]")]
     public class BaseController : ControllerBase
     {
-        protected readonly ILogger<PlantController> _logger;
+        protected readonly ILogger _logger;
         protected readonly IDataContext _dataContext;
         protected readonly IMapper _mapper;
 
-        public BaseController(ILogger<PlantController> logger, IDataContext dataContext, IMapper mapper)
+        public BaseController(ILogger logger, IDataContext dataContext, IMapper mapper)
         {
             _logger = logger;
             _dataContext = dataContext;

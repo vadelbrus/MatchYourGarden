@@ -321,4 +321,13 @@ html {
       -ms-flex-align: center;
           align-items: center;
 }
+
+.pagination__number {
+  color: red;
+}
+
+.pagination__number--active {
+  color: red;
+  background-color: green;
+}
 /*# sourceMappingURL=style.css.map */

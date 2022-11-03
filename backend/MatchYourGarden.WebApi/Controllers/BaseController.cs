@@ -35,7 +35,7 @@ namespace MatchYourGarden.WebApi.Controllers
         {
             if (serviceResponse.StatusCode == 200)
             {
-                var dto = _mapper.Map<TModel, TDto>(serviceResponse.Data);
+                var dto = Map<TModel, TDto>(serviceResponse.Data);
                 return RequestResult(serviceResponse, new Response<TDto>(dto));
             }
 
@@ -46,11 +46,16 @@ namespace MatchYourGarden.WebApi.Controllers
         {
             if (serviceResponse.StatusCode == 200)
             {
-                var dto = _mapper.Map<TModel, TDto>(serviceResponse.Data);
+                var dto = Map<TModel, TDto>(serviceResponse.Data);
                 return RequestResult(serviceResponse, new PaginatedResponse<TDto>(dto, page, count, totalCount));
             }
 
             return Error(serviceResponse.StatusCode, serviceResponse.ErrorMessage);
+        }
+
+        protected T2 Map<T1, T2>(T1 obj)
+        {
+            return _mapper.Map<T1, T2>(obj);
         }
 
         private IActionResult RequestResult(IServiceResponse response, IResponse result)

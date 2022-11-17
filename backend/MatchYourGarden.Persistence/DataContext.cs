@@ -6,7 +6,7 @@ namespace MatchYourGarden.Persistence
     public class DataContext : DbContext, IDataContext
     {
         public DbSet<Plant> Plants { get; set; }
-        public DbSet<Plant> Gardens { get; set; }
+        public DbSet<Garden> Gardens { get; set; }
         public DbSet<T> Entities<T>() where T : EntityBase => base.Set<T>();
 
         public DataContext(DbContextOptions<DataContext> contextOptions) : base(contextOptions)

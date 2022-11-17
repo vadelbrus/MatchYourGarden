@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MatchYourGarden.Services
 {
-    public class ServiceBase<TModel>
+    public class ServiceBase<TModel> : IServiceBase<TModel>
         where TModel : EntityBase
     {
         protected IDataContext _dataContext;

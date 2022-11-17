@@ -11,6 +11,7 @@ frontend/ - frontend repository written in JS
  add-migration MigrationName -startupproject MatchYourGarden.WebApi -project MatchYourGarden.Persistence
  
  **Creating SQL script for the last migration**
+ 
  script-migration -From PreviousMigration
 
  

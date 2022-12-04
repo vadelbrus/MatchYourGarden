@@ -35,9 +35,17 @@ namespace MatchYourGarden.WebApi.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult Create([FromBody] Plant plant)
+        public IActionResult Create([FromBody] PlantDto plant)
         {
-            var response = _plantService.Create(plant);
+            var entity = Map<PlantDto, Plant>(plant);
+            var response = _plantService.Create(entity);
+            return ApiResponse<Plant, PlantDto>(response);
+        }
+
+        [HttpPost("relate")]
+        public IActionResult Relate(Guid plantId, Guid gardenId)
+        {            
+            var response = _plantService.Relate(plantId, gardenId);
             return ApiResponse(response);
         }
     }

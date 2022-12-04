@@ -3,6 +3,6 @@
     public class PlantDto : BaseDto
     {
         public string LatinName { get; set; }
-        public List<GardenListItemDto> Gardens { get; set; }
+        public List<GardenListItemDto>? Gardens { get; set; }
     }
 }

@@ -2,6 +2,6 @@
 {
     public class GardenDto : BaseDto
     {
-        public List<PlantListItemDto> Plants { get; set; }
+        public List<PlantListItemDto>? Plants { get; set; }
     }
 }

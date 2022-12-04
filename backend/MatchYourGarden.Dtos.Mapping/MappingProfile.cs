@@ -8,7 +8,14 @@ namespace MatchYourGarden.Dtos.Mapping
         public MappingProfile()
         {
             CreateMap<Plant, PlantDto>();
+            CreateMap<PlantDto, Plant>();
             CreateMap<Plant, PlantListItemDto>();
+            CreateMap<PlantListItemDto, Plant>();
+
+            CreateMap<Garden, GardenDto>();
+            CreateMap<GardenDto, Garden>();
+            CreateMap<Garden, GardenListItemDto>();
+            CreateMap<GardenListItemDto, Garden>();
         }
     }
 }

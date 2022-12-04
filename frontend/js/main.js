@@ -1,32 +1,34 @@
-import { getPlant, displayPlants, pagination} from "./plants.js";
+import { displayPlants, getDataFromApi } from "./plants.js";
+import { pagination } from "./pagination.js";
 
-
-
-const api_url = "https://matchyourgarden.azurewebsites.net";
-
-const DEFAULT_PAGE = 0;
+//INITIALIZE CONSTS VARIABLES
+const API_URL = "https://matchyourgarden.azurewebsites.net";
 const DEFAULT_ITEMS_PER_PAGE = 10;
+const DEFAULT_PAGE = 0;
+
+//INITIAGE init() FUNCTION TO DISPLAY PLANTS LIST AND PAGINATION
 
 async function init(){
-    const plantsServersettings = await displayPlants(api_url, DEFAULT_PAGE, DEFAULT_ITEMS_PER_PAGE);
-    console.log(plantsServersettings)
-    await pagination(api_url, plantsServersettings.skip, plantsServersettings.count);
-    
+
+    //ITEMS PER PAGE BUTTON FUNCTIONALITY (pagination__per-page)   
+    document.querySelector(".pagination__per-page").addEventListener("change", async (e)=> {
+         await pagination(API_URL, "PLANTS", DEFAULT_PAGE, e.target.value);
+    });
+
+    //RENDER PLANTS LIST AND PAGINATION
+
+    await displayPlants(API_URL, DEFAULT_PAGE, DEFAULT_ITEMS_PER_PAGE);
+    await pagination(API_URL, "PLANTS", DEFAULT_PAGE, DEFAULT_ITEMS_PER_PAGE);
+
+    //ADD SEARCH BUTTON FUNCTIONALITY
     document.querySelector(".search-box__button").addEventListener('click', async (e)=> {
         e.preventDefault();
-        const input = document.querySelector(".search-box__text");
-        const inputValue = input.value;
-        console.log(input)
-        const plant = await getPlant(inputValue);
-        input.value = "";
-
-        
-        
+        let inputValue = document.querySelector(".search-box__text").value;
+        const plant = await getDataFromApi(API_URL, "SEARCHPLANT", null, null, inputValue);
+        console.log(plant)
+        inputValue = "";
         
     })
-
-   
-
 }
 
 init();

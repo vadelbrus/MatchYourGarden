@@ -8,20 +8,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/style.css">
-    <!-- <script type="module" src="/js/main.js" defer ></script> -->
+    <script type="module" src="/js/menu.js" defer ></script>
     <title>Match Your Garden</title>
 </head>
 <body class="page">
     <div class="page__wrapper">
+        <nav class="page__nav nav">
+            <div class="nav__inner">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="/index.html" class="nav__link">Home</a></li>
+                    <li class="nav__item"><a href="/plants.html" class="nav__link">Plants</a></li>
+                    <li class="nav__item"><a href="#" class="nav__link">Garden</a></li>
+                    <li class="nav__item"><a href="/user.html" class="nav__link">Login</a></li>
+                </ul>
+            </div>
+        </nav>
         <header class="header">
              <a target="_self" href="/index.html" class="header__logo-link">
                 <img src="/img/logo-clover.png" alt="logo-icon" class="header__image">
             </a>
             <h1 class="header__title">Match your garden!</h1>
             <button class="header__hamburger hamburger">
-                <span class="hamburger__box">
-                    <span class="hamburger__inner"></span>
-                </span>                
+                <div class="hamburger__inner">
+                    <span class="hamburger__bar hamburger__bar"></span>
+                    <span class="hamburger__bar"></span>
+                    <span class="hamburger__bar"></span>
+                </div>
             </button>
         </header>
         <main class="page__main-select main-select">

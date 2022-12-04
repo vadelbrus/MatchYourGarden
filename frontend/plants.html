@@ -8,20 +8,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/style.css">
+    <script type="module" src="/js/menu.js" defer ></script>
+    <script type="module" src="/js/api.js" defer ></script>
     <script type="module" src="/js/main.js" defer ></script>
     <title>PLANTS</title>
 </head>
 <body class="page">
     <div class="page__wrapper">
+        <nav class="page__nav nav">
+            <div class="nav__inner">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="/index.html" class="nav__link">Home</a></li>
+                    <li class="nav__item"><a href="/plants.html" class="nav__link">Plants</a></li>
+                    <li class="nav__item"><a href="#" class="nav__link">Garden</a></li>
+                    <li class="nav__item"><a href="/user.html" class="nav__link">Login</a></li>
+                </ul>
+            </div>
+        </nav>
         <header class="header">
              <a target="_self" href="/index.html" class="header__logo-link">
                 <img src="/img/logo-clover.png" alt="logo-icon" class="header__image">
             </a>
             <h1 class="header__title">Match your garden!</h1>
             <button class="header__hamburger hamburger">
-                <span class="hamburger__box">
-                    <span class="hamburger__inner"></span>
-                </span>                
+                <div class="hamburger__inner">
+                    <span class="hamburger__bar hamburger__bar"></span>
+                    <span class="hamburger__bar"></span>
+                    <span class="hamburger__bar"></span>
+                </div>
             </button>
         </header>
         <main class="page__main main">
@@ -29,15 +43,29 @@
                     <input aria-label="search" type="search" placeholder="Type plant id or name" class="search-box__text">
                     <button aria-label="search" id="search-button" class="search-box__button"></button>
                 </div>
-        <section class="main__section section">
-            <div class="section__pagination pagination">
-                <div class="pagination__list"></div>
-                <nav class="pagination__container">
-                    <button class="pagination__button pagination__prev-btn" aria-label="Previous page" title="Previous Page">&lt;</button>
-                    <div class="pagination__numbers"></div>
-                    <button class="pagination__button pagination__next-btn" aria-label="Next page" title="Next Page">&gt;</button>
+        <section class="page__section section">
+            <div class="section__container">
+                <select class="pagination__per-page" autocomplete = "off">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                  </select>
+                <table class="section__table list">
+                    <thead class="list__header">
+                           <tr class="list__row">
+                            <td class="list__row-cell list__head-cell">Name</td>
+                            <td class="list__row-cell list__head-cell">Latin name</td>
+                            <td class="list__row-cell list__head-cell"></td>
+                        </tr>
+                    </thead>
+                    <tbody class="list__body"></tbody>
+                </table>
+                <nav class="section__pagination pagination">
+                    <div class="pagination__container"></div>
                 </nav>
             </div>
+                      
         </section>
         </main>
         <footer class="page__footer footer">

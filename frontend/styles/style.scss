@@ -1,140 +1,321 @@
 @import 'vars.scss';
 @import 'reset.scss';
+@import 'breakpoints.scss';
 
 html {
     font-family: 'Roboto Condensed', sans-serif;
 }
 
-.prage__wrapper {
+.page {
+
+    position: relative;
     background-color: $color-blue-alpha-100;
-    
-    
+    // overflow-x: hidden;
+    &__wrapper {
+        position: relative;
+        min-height: 100vh;
+        // background-color: $color-blue-alpha-100;
+        
+    }
+
+    &__main {
+        padding-top: 70px;
+        min-height: calc(100vh - 140px);
+    }
+
+    &--hidden {
+        overflow: hidden;
+    }
+
 }
 
+
 .header {
-    height: 60px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 100;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    height: 60px;
     padding: 10px 15px;
     background-color: $color-green-alpha-100;
     border-radius: 0 0 10px 10px;
 
-    &__logo-link {
-       display: block;
+     &__logo-link {
+        display: block;
+        position: absolute;
+        top: 0;
+        transform: translateY(25%);
+        left: 15px;
+
     }
     
-
     &__image {
         width: 40px;
         height: 40px;
         display: block;
         color: $color-white-alpha-100;
+
+        // @include breakpoint(xs) {
+        //     width: 45px;
+        // height: 45px;
+        // }
+
+        // @include breakpoint(md) {
+        //     width: 50px;
+        //     height: 50px;
+            
+        // }
     }
 
     &__title {
-        font-size: $fs-lg;
+        font-size: $fs-xl;
         text-transform: uppercase;
         color: $color-blue-alpha-100;
+
+        @include breakpoint(xs) {
+            font-size: $fs-xl;
+        }
+    
+        @include breakpoint(sm) {
+            font-size: $fs-xxl;
+        }
     }
 
-    
-
+    &__hamburger {
+        right: 15px;
+        top: 15px;
+        position: absolute;
+        // position: fixed;
+        z-index: 200;
+    }
     
 }
 
 
 .hamburger {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    margin: 0;
+    
+    display: inline-block;
     padding: 0;
-    overflow: hidden;
+    margin: 0;
     cursor: pointer;
     background-color: transparent;
     border: none;
-    // color: $color-white-alpha-100;
 
-    &__box {
-        position: relative;
+      
+&__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 35px;
+    height: 26px;
+    // background-color: red;
+    
+}
+
+
+&__bar {
+    display: block;
+    position: absolute;
+    // top: 50%;
+    right: 0;
+    // transform: translateY(-50%);
+    width: 25px;
+    height: 3px;
+    background-color: $color-white-alpha-100;
+    opacity: 1;
+    transition: transform .3s ease-in-out, opacity .3s ease-in-out ;
+    
+    
+    
+
+    &:nth-child(1) {
+        top: 0;
+        // transform: translateY(-50%);
+        width: 35px;
+        
+      
+    }
+
+    &:nth-child(3) {
+        bottom: 0;
+        
+        // transform: translateY(-50%);
+        width: 35px;
+    
+    }
+
+
+}
+      
+&--is-active &__bar:nth-child(1) {
+    transform: translateY(11px) rotate(-45deg);
+
+    
+}
+
+&--is-active &__bar:nth-child(2) {
+    opacity: 0;
+}
+
+&--is-active &__bar:nth-child(3) {
+    transform: translateY(-11px) rotate(45deg);
+}
+   
+}
+
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    transform: translateX(100%);
+    background-color: $color-green-alpha-100;
+    z-index: 100;
+    transition: transform .15s ease-in-out;
+
+    &--is-active {
+        transform: translateX(0);
+    }
+
+    &__inner {
+        height: 100%;
+        margin-top: 65px;
+    }
+
+    &__list {
+        // padding-top: 55px;
+        height: 100%;
+        width: 150px;
+    }
+
+    &__link {
         display: inline-block;
-        width: 40px;
-        height: 4px;
-        background-color: $color-white-alpha-100;
-        border-radius: 10px;
         
-    }
-         
-   @mixin hamburger-line {
-        width: 100%;
-        height: 4px;
-        background-color: $color-white-alpha-100;
-        position: absolute;
-        border-radius: 10px;
-        
-     }
 
-    &__inner::before,
-    &__inner::after {
-        @include hamburger-line;
-        content: '';
-        left: 0;
-
+        padding: 5px 15px;
+        font-size: $fs-xl;
+        color: $color-white-alpha-100;
+        text-decoration: none;
+        text-transform: uppercase;
     }
 
-    &__inner::before {
-        top: -10px;
+}
+.section {
+    
+   height: 100%;
+   margin-top: 15px;
+    
+    &__container {
+        position: relative;
+        width: 300px;
+        margin: 0 auto;
+        @include breakpoint(xs) {
+            width: 380px;
+        }
 
+        @include breakpoint(md) {
+            width: 440px;
+        }
     }
 
-    &__inner::after {
-        top: 10px;
+    &__add-button {
         
+        &--none {
+            display: none;
+        }
     }
 
 }
 
-
-
-.main {
-    padding: 20px;
-    height: calc(100vh - 120px);
+.form-successful {
     
+    display: none;
+    
+    &--block {
+        display: block;
+    }
+    width: 80%;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: $color-pink-alpha-100;
 
-    &__search {
-        margin: 0 auto;
+    &__title, &__name {
+        padding: 10px 0;
+    }
+}
+
+.form {
+    
+    position: relative;
+    width: 250px;
+    // display: none;
+    &--none {
+        display: none;
+}
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: $color-pink-alpha-100;
+    
+    &__close-btn {
+        position: absolute;
+        top:5px;
+        right: 10px;
+    }
+    &__group {
+        display: flex;
+        flex-direction: column;
+        
+        width: 80%;
+        margin: 30px 10px;
+        
     }
 
-    &__section {
-        height: 100%;
-        margin: 0 auto;
-        margin-top: 20px;
-        border-radius: 10px;
-        // background-color: $color-pink-alpha-100;
-        // padding: 0 5px;
+    &__label {
+        padding: 10px 0;
     }
 
-    &__card {
-        margin: 0 auto;
+    &__control {
+        background-color: $color-pink-alpha-100;
+        border: none;
+        border-bottom: 1px solid black;
+        &:focus {
+            outline: none;
+        }
     }
-    
-    
-    
+
+    &__send-button {
+        margin: 0 auto;
+        width: 80px;
+        padding: 10px;
+    }
 }
 
 .search-box {
+    margin: 0 auto;
     position: relative;
     display: flex;
     align-items: center;
-    // width: 320px;
-    width: 100%;
+    width: 300px;
     
     height: 40px;
     box-shadow: 0 4px 8px 0px rgba($color: #000000, $alpha: 0.3);
     border-radius: 20px;
+
+    @include breakpoint(xs) {
+        width: 380px;
+    }
+
+    @include breakpoint(md) {
+        width: 440px;
+    }
     
     &__text {
         width: 90%;
@@ -171,7 +352,17 @@ html {
     }
 }
 
+//PLANT CARD STYLES
+
+.main-card {
+    height: calc(100vh - 120px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .card {
+    margin: 0 auto;
     width: 240px;
     height: 400px;
     padding: 10px 30px;
@@ -180,7 +371,6 @@ html {
     border-radius: 10px;
 
     &__title {
-        // padding: 10px;
         margin-bottom: 10px;
         text-align: center;
         font-size: $fs-lg;
@@ -210,54 +400,6 @@ html {
     
 }
 
-
-.plants-list {
-    list-style: none;
-
-    &__item {
-        height: 30px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 8px;
-        margin-bottom: 5px;
-        text-align: left;
-        background-color: $color-green-alpha-70;
-        border-radius: 10px;
-        font-size: 12px;
-        color: $color-white-alpha-100;
-
-    }
-
-    &__name, &__latin-name {
-        flex-basis: 35%;
-    }
-
-&__link {
-    display: block;
-    height: 100%;
-    color: $color-white-alpha-100;
-    text-decoration: none;
-
-    
-}
-
-  
-
-    &__link:hover {
-        
-        cursor: pointer;
-        background-color: $color-green-alpha-60;
-    }
-
-}
-
-
-.footer {
-    height: 60px;
-    color: $color-blue-alpha-100;
-    background-color: $color-green-alpha-100;
-}
 
 //INDEX STYLES
 
@@ -291,27 +433,328 @@ html {
     }
 }
 
-//PLANT CARD STYLES
 
-.main-card {
-    height: calc(100vh - 120px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+//PAGINATION LIST STYLES
 
-.pagination {
+.list {
+    
+    table-layout: auto;
+    width: 300px;
+    border-collapse:collapse;
+    box-shadow: 0 4px 8px 0px rgba($color: #000000, $alpha: 0.3);
 
-    &__number {
-        color: red;
-        
-        &--active {
-            color: red;
-            background-color: green;
-        }
+    @include breakpoint(xs) {
+        width: 380px;
+    }
 
+    @include breakpoint(md) {
+        width: 440px;
+    }
+  
+&__header {
+    height: 40px;
+    font-size: $fs-ms;
+    
+
+    @include breakpoint(xs) {
+        font-size: $fs-md;
+    }
+
+    @include breakpoint(sm) {
+        font-size: $fs-lg;
     }
 
    
+}
 
+&__head-cell {
+    color: $color-white-alpha-100;
+    background-color:$color-green-alpha-100;
+}
+
+
+&__row {
+    
+    height: 30px;
+    position: relative;
+    text-align: left;
+    background-color: #D3D3D3;
+    
+    &:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+    
+  
+}
+    
+&__row-cell {
+    width: 40%;
+    padding: 5px;
+    word-break: break-all;
+}
+
+&__body {
+    font-size: 1.2rem;
+
+    @include breakpoint(xs) {
+        font-size: 1.3rem;
+    }
+
+    @include breakpoint(sm) {
+        font-size: 1.4rem;
+    }
+}
+
+&__row-link {
+    width: 20%;
+    text-align: center;
+    color: $color-green-alpha-100;
+}
+
+&__link::before {
+    position: absolute;
+    display: block;
+    content: "";
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+
+}
+ 
+    
+}
+
+//PAGINATION PAGES
+
+.pagination {
+    width: 300px;
+    margin-top: 10px;
+    font-size: $fs-sm;
+    @include breakpoint(xs) {
+        width: 380px;
+        font-size: 1.3rem;
+    }
+
+    @include breakpoint(md) {
+        width: 440px;
+        font-size: $fs-md;
+    }
+
+    &__container {
+        
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 30px;  
+        
+
+    }
+
+    &__inner {
+        display: flex;
+        align-items: center;
+        width: 275px;
+        margin-right: 5px;
+
+        @include breakpoint(xs) {
+            width: 300px;
+        }
+
+        @include breakpoint(md) {
+            width: 400px;
+            
+        }
+    
+    }
+
+    &__info {
+        font-size: $fs-sm;
+        // @include breakpoint(xs) {
+        //     font-size: $fs-sm;
+        // }
+
+        @include breakpoint(md) {
+            
+            font-size: $fs-ms;
+            
+        }
+        
+    }
+
+  &__pages {
+        display: flex;
+        align-items: center;
+}
+  
+
+    &__page, &__button {
+        min-width: 25px;
+        height: 25px;
+        margin: 0 2px;
+        background-color: none;
+        border: none;
+        font-size: $fs-sm;
+        text-align: center;
+        
+        @include breakpoint(xs) {
+            margin: 0 5px;
+        }
+
+        @include breakpoint(md) {
+            margin: 6px;
+            font-size: $fs-ms;
+            
+        }
+    
+        
+        &--active {
+            color: #fff;
+            background-color: green;
+        }
+
+        &--hide {
+            display: none;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+
+      
+    }
+
+  
+    &__dots {
+        display: block;
+        min-width: 25px;
+        height: 25px;
+        line-height: 25px;
+        text-align: center;
+        // font-size: $fs-sm;
+
+    }
+
+    &__per-page {
+        height: 30px;
+        position: absolute;
+        z-index: 10;
+        right: 5px;
+        top: 5px;
+        font-size: $fs-ms;
+    
+
+        @include breakpoint(xs) {
+            font-size: $fs-md;
+        }
+    
+        @include breakpoint(sm) {
+            font-size: $fs-lg;
+        }
+
+    }
+   
+}
+
+//FOOTER STYLES
+
+.footer {
+    // position: absolute;
+    // bottom: 0;
+    width: 100%;
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    font-size: 20px;
+    color: $color-blue-alpha-100;
+    background-color: $color-green-alpha-100;
+    border-radius: 10px;
+}
+
+// USER PAGE STYLES
+
+.page {
+    &__user-main {
+        // height: 100vh;
+        
+    }
+}
+
+.panel {
+    height: calc(100vh - 140px);
+    margin: 70px 10px 10px;
+    border-radius: 10px;
+    background-color: $color-pink-alpha-100;
+
+    &__inner {
+        
+        
+        display: flex;
+        justify-content: center;
+        
+    }
+
+    &__add-form {
+        display: none;
+        padding-top: 10px;
+
+        &--block {
+            display: block;
+        }
+
+      
+    }
+
+
+  
+
+    &__list {
+        margin: 0 auto;
+        // display: flex;
+        // justify-content: space-evenly;
+        // flex-wrap: wrap;
+        width: 300px;
+        padding: 5px;
+        text-align: left;
+
+        @include breakpoint(xs) {
+            width: 380px;
+            // text-align: center;
+        }
+
+        @include breakpoint(sm) {
+            width: 400px;
+            
+        }
+
+        @include breakpoint(sm) {
+            width: 440px;
+            
+        }
+        
+        
+
+    }
+
+    &__list-item {
+        // flex-basis: 60px;
+        display: inline-block;
+        width: 60px;
+        padding: 5px;
+        margin: 5px;
+        background-color: $color-white-alpha-100;
+        border-radius: 10px;
+        text-align: center;
+        color: $color-dark-alpha-80;
+        box-shadow: 0 4px 8px 0px rgba($color: #000000, $alpha: 0.3);
+        cursor: pointer;
+
+        &:hover {
+            background-color:$color-green-alpha-60;
+            color: $color-white-alpha-100;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+    }
 }

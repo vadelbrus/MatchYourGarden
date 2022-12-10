@@ -1,6 +1,7 @@
-import { displayPlants, getDataFromApi } from "./plants.js";
+import { ApiDataHandler } from "./ApiDataHandler.js";
+import { ViewPlantsData } from "./ViewPlants.js";
 import { pagination } from "./pagination.js";
-
+ 
 //INITIALIZE CONSTS VARIABLES
 const API_URL = "https://matchyourgarden.azurewebsites.net";
 const DEFAULT_ITEMS_PER_PAGE = 10;
@@ -9,26 +10,21 @@ const DEFAULT_PAGE = 0;
 //INITIAGE init() FUNCTION TO DISPLAY PLANTS LIST AND PAGINATION
 
 async function init(){
-
-    //ITEMS PER PAGE BUTTON FUNCTIONALITY (pagination__per-page)   
+    
+    //INSTANTIATE ViewPlantsData and ApiDataHandler Classes
+    const renderPlants = new ViewPlantsData(new ApiDataHandler(API_URL));
+    
+    //RENDER INITIAL PLANT LIST
+    renderPlants.displayPlants("plant", "getall", [DEFAULT_PAGE, DEFAULT_ITEMS_PER_PAGE ])
+    
+    //RENDER INITIAL PAGINATION
+    await pagination("plant", "getall", [DEFAULT_PAGE, DEFAULT_ITEMS_PER_PAGE]);
+   
+    //ADD ITEMS PER PAGE FUNCTIONALITY
     document.querySelector(".pagination__per-page").addEventListener("change", async (e)=> {
-         await pagination(API_URL, "PLANTS", DEFAULT_PAGE, e.target.value);
-    });
-
-    //RENDER PLANTS LIST AND PAGINATION
-
-    await displayPlants(API_URL, DEFAULT_PAGE, DEFAULT_ITEMS_PER_PAGE);
-    await pagination(API_URL, "PLANTS", DEFAULT_PAGE, DEFAULT_ITEMS_PER_PAGE);
-
-    //ADD SEARCH BUTTON FUNCTIONALITY
-    document.querySelector(".search-box__button").addEventListener('click', async (e)=> {
-        e.preventDefault();
-        let inputValue = document.querySelector(".search-box__text").value;
-        const plant = await getDataFromApi(API_URL, "SEARCHPLANT", null, null, inputValue);
-        console.log(plant)
-        inputValue = "";
-        
-    })
+            await pagination("plant", "getall", [DEFAULT_PAGE, Number(e.target.value)]);
+        });
 }
 
-init();
+init();   
+

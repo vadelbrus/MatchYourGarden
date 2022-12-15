@@ -1,5 +1,5 @@
-import { ApiDataHandler } from "./ApiDataHandler.js";
-import { ViewPlantsData } from "./ViewPlants.js";
+import { BaseEntity } from "./BaseEntity.js";
+import { Api } from "./Api.js";
 import { pagination } from "./pagination.js";
  
 //INITIALIZE CONSTS VARIABLES
@@ -7,15 +7,18 @@ const API_URL = "https://matchyourgarden.azurewebsites.net";
 const DEFAULT_ITEMS_PER_PAGE = 10;
 const DEFAULT_PAGE = 0;
 
+
+
+
 //INITIAGE init() FUNCTION TO DISPLAY PLANTS LIST AND PAGINATION
 
 async function init(){
     
     //INSTANTIATE ViewPlantsData and ApiDataHandler Classes
-    const renderPlants = new ViewPlantsData(new ApiDataHandler(API_URL));
+    const baseEntity = new BaseEntity(new Api(API_URL));
     
     //RENDER INITIAL PLANT LIST
-    renderPlants.displayPlants("plant", "getall", [DEFAULT_PAGE, DEFAULT_ITEMS_PER_PAGE ])
+    baseEntity.displayData("plant", "getall", [DEFAULT_PAGE, DEFAULT_ITEMS_PER_PAGE ])
     
     //RENDER INITIAL PAGINATION
     await pagination("plant", "getall", [DEFAULT_PAGE, DEFAULT_ITEMS_PER_PAGE]);

@@ -1,8 +1,8 @@
-import { ApiDataHandler } from "./ApiDataHandler.js"
-import { ViewPlantsData } from "./ViewPlants.js"
+import { Api } from "./Api.js"
+import { BaseEntity } from "./BaseEntity.js"
 const API_URL = "https://matchyourgarden.azurewebsites.net";
-const apiHandler = new ApiDataHandler(API_URL);
-const viewPlants = new ViewPlantsData(apiHandler);
+const api = new Api(API_URL);
+const baseEntity = new BaseEntity(api);
 
 const disableButton = (button)=> {
     button.disabled = true;
@@ -121,8 +121,8 @@ export const  pagination = async (type, method, props)=> {
     
     //GET DATA FROM API IMPORTANT TO CALCULATE TOTAL PAGES
 
-    const plantsData = await apiHandler.getRecords(type, method, props);
-    const totalItems =  plantsData.totalCount;
+    const plantsData = await api.getData(type, method, props);
+    const totalItems =   plantsData.totalCount;
     const defaultPage = props[0];
     const perPage = props[1];
     const numberOfPages = Math.ceil( totalItems / perPage);
@@ -142,7 +142,7 @@ export const  pagination = async (type, method, props)=> {
     if(currentPage === 0) {handleButtonsState(currentPage, numberOfPages, prevBtn, nextBtn, goToFirstPageBtn, goToLastPageBtn);};
     setActivePage(currentPage);
     // await displayPlants(url, currentPage, itemsPerPage);
-    await viewPlants.displayPlants(type, method, props);
+    await baseEntity.displayData(type, method, props);
 
     
     
@@ -157,7 +157,7 @@ export const  pagination = async (type, method, props)=> {
         handleButtonsState(currentPage, numberOfPages, prevBtn, nextBtn, goToFirstPageBtn, goToLastPageBtn);
         
         // await displayPlants(url, currentPage, itemsPerPage);
-        await viewPlants.displayPlants(type, method, [currentPage, perPage]);
+        await baseEntity.displayData(type, method, [currentPage, perPage]);
         pagination.innerHTML = await checkPages(currentPage, pagesFactor, numberOfPages);
         
         setActivePage(currentPage);
@@ -174,7 +174,7 @@ export const  pagination = async (type, method, props)=> {
         setActivePage(currentPage);
         
         // await displayPlants(url, currentPage, itemsPerPage);
-        await viewPlants.displayPlants(type, method, [currentPage, perPage]);
+        await baseEntity.displayData(type, method, [currentPage, perPage]);
     })
 
     nextBtn.addEventListener('click', async (e)=> {
@@ -184,7 +184,7 @@ export const  pagination = async (type, method, props)=> {
         pagination.innerHTML = await checkPages(currentPage, pagesFactor, numberOfPages);
         setActivePage(currentPage);
         
-        await viewPlants.displayPlants(type, method, [currentPage, perPage]);
+        await baseEntity.displayData(type, method, [currentPage, perPage]);
     })
 
     // ADD SKIP BUTONS FUNCTIONALITY
@@ -196,7 +196,7 @@ export const  pagination = async (type, method, props)=> {
         pagination.innerHTML = await checkPages(currentPage, pagesFactor, numberOfPages);
         setActivePage(currentPage);
 
-        await viewPlants.displayPlants(type, method, [currentPage, perPage]);
+        await baseEntity.displayData(type, method, [currentPage, perPage]);
 
 
     });
@@ -208,7 +208,7 @@ export const  pagination = async (type, method, props)=> {
         pagination.innerHTML = await checkPages(currentPage, pagesFactor, numberOfPages);
         setActivePage(currentPage);
         
-        await viewPlants.displayPlants(type, method, [currentPage, perPage]);
+        await baseEntity.displayData(type, method, [currentPage, perPage]);
 
     })
 

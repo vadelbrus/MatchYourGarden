@@ -1,7 +1,7 @@
-import { ApiDataHandler } from "./ApiDataHandler.js";
+import { Api } from "./Api.js";
 
 const API_URL = "https://matchyourgarden.azurewebsites.net";
-const api = new ApiDataHandler(API_URL);
+const api = new Api(API_URL);
 
 //USER PANEL FUNCTIONALITY
 const list = document.querySelector(".panel__nav");
@@ -22,8 +22,8 @@ list.addEventListener("click", (e)=> {
 
 const handleSuccessMessage = async (data)=> {
         
-    const form = document.querySelector('form');
-    form.classList.toggle("form--block");
+    const form = document.querySelector('.form');
+    form.classList.toggle("form--none");
 
     const msgContainer = document.querySelector('.form-successful');
     const name = document.querySelector('.form-successful__name-text');
@@ -36,8 +36,8 @@ const handleSuccessMessage = async (data)=> {
 }
 
 export const addNewData = async (data)=> {
- 
-    const response = await api.setNewRecord("plant", "create", data);
+    console.log(data)
+    const response = await api.postApiData("plant", "create", data);
     const responseData  = response.data;
     handleSuccessMessage(response);
     return responseData

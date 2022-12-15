@@ -1,12 +1,12 @@
 
-export class ViewPlantsData {
+export class BaseEntity {
     
     constructor(api) {
     this.api = api;
        
     }
     
-    async getPlantList(data){
+    async getDataList(data){
         
         const tbody = document.querySelector(".list__body");
         tbody.innerHTML = "";
@@ -24,14 +24,14 @@ export class ViewPlantsData {
         return new URLSearchParams(window.location.search).get(value);
       }
 
-    getPlantHtmlTemplate(plant) {
+    getHtmlTemplate(data) {
         return `<article class="main__card card">
                     <div class="card__title-group">
-                        <h2 class="card__title">${plant.name}</h2>
-                        <p class="card__info"><span class="card__author"></span><time class="card__date">${plant.dateCreated}</time></p>
+                        <h2 class="card__title">${data.name}</h2>
+                        <p class="card__info"><span class="card__author"></span><time class="card__date">${data.dateCreated}</time></p>
                     </div>
                     <div class="card__labels">
-                        <p class="card__label">${plant.latinName}</p>
+                        <p class="card__label">${data.latinName}</p>
                         <p class="card__label"></p>
                         <p class="card__label"></p>
                     </div>
@@ -41,25 +41,25 @@ export class ViewPlantsData {
 
    
       
-    async displayPlants(type, method, props) {
-        const plants = await this.api.getRecords(type, method, props);
-        const plantsData = plants.data;
-        this.getPlantList(plantsData);
+    async displayData(type, method, props) {
+        const response = await this.api.getApiData(type, method, props);
+        const data = response.data;
+        this.getDataList(data);
         
     }
 
-     displayPlantInfo = async (htmlElement) => {
+     displayDetails = async (element) => {
         const id = this.getIdFromParams('id');
-        const plant = await this.api.getRecord("plant", "get", null, id);
-        const plantData = plant.data;
+        const response = await this.api.getApiData("plant", "get", [id]);
+        const data = response.data;
         
-        return htmlElement.innerHTML = `<article class="main__card card">
+        return element.innerHTML = `<article class="main__card card">
             <div class="card__title-group">
-                <h2 class="card__title">${plantData.name}</h2>
-                <p class="card__info"><span class="card__author"></span><time class="card__date">${plantData.dateCreated}</time></p>
+                <h2 class="card__title">${data.name}</h2>
+                <p class="card__info"><span class="card__author"></span><time class="card__date">${data.dateCreated}</time></p>
             </div>
             <div class="card__labels">
-                <p class="card__label">${plantData.latinName}</p>
+                <p class="card__label">${data.latinName}</p>
                 <p class="card__label"></p>
                 <p class="card__label"></p>
             </div>

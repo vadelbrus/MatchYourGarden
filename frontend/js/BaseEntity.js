@@ -42,7 +42,7 @@ export class BaseEntity {
    
       
     async displayData(type, method, props) {
-        const response = await this.api.getApiData(type, method, props);
+        const response = await this.api.getData(type, method, props);
         const data = response.data;
         this.getDataList(data);
         
@@ -50,7 +50,7 @@ export class BaseEntity {
 
      displayDetails = async (element) => {
         const id = this.getIdFromParams('id');
-        const response = await this.api.getApiData("plant", "get", [id]);
+        const response = await this.api.getData("plant", "get", [id]);
         const data = response.data;
         
         return element.innerHTML = `<article class="main__card card">

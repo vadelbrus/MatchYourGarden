@@ -7,4 +7,4 @@ const API_URL = "https://matchyourgarden.azurewebsites.net";
 const selector =  document.querySelector(".pagination__per-page");
 const baseEntity = new BaseEntity(new Api(API_URL));
 
-new App([baseEntity, 'plant', 'getAll', [0 , 10]], pagination, selector);
+new App([baseEntity, 'garden', 'getall', [0 , 10]], pagination, selector);

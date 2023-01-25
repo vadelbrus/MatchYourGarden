@@ -1,4 +1,8 @@
-import { displayPlants, getDataFromApi} from "./plants.js";
+import { Api } from "./Api.js"
+import { BaseEntity } from "./BaseEntity.js"
+const API_URL = "https://matchyourgarden.azurewebsites.net";
+const api = new Api(API_URL);
+const baseEntity = new BaseEntity(api);
 
 const disableButton = (button)=> {
     button.disabled = true;
@@ -33,7 +37,6 @@ const checkPages = async (current, factor, totalPages) => {
         return `${allPagesHtmlTemplate}`;
    }
    if(totalPages > 3 && current === 0){
-        console.log('first');
         const nextPage = current + 1;
         const sequentPage = current + 2;
         const skipPage = current + 9 < totalPages? current + 9: totalPages - 1;
@@ -89,7 +92,7 @@ const handleButtonsState = (index, pages, prev, next, start, last)=> {
     };
 }
 
-export const  pagination = async (url, method, page, itemsPerPage)=> {
+export const  pagination = async (type, method, props)=> {
 
     //CREATE PAGINATION TEMPLATE
     
@@ -118,11 +121,14 @@ export const  pagination = async (url, method, page, itemsPerPage)=> {
     
     //GET DATA FROM API IMPORTANT TO CALCULATE TOTAL PAGES
 
-    const plantsData = await getDataFromApi(url, method, page, itemsPerPage);
-    const totalItems =  plantsData.totalCount;
-    const numberOfPages = Math.ceil( totalItems / itemsPerPage );
-       
-    currentPage = currentPage > numberOfPages ? numberOfPages : page;
+    const plantsData = await api.getData(type, method, props);
+    const totalItems =   plantsData.totalCount;
+    const defaultPage = props[0];
+    const perPage = props[1];
+    const numberOfPages = Math.ceil( totalItems / perPage);
+    
+    
+    currentPage = currentPage > numberOfPages ? numberOfPages : defaultPage;
 
     // SET INITIAL PAGINATION 
     const pagesFactor = 2;
@@ -135,7 +141,9 @@ export const  pagination = async (url, method, page, itemsPerPage)=> {
     totalItemsInfo.textContent = totalItems;
     if(currentPage === 0) {handleButtonsState(currentPage, numberOfPages, prevBtn, nextBtn, goToFirstPageBtn, goToLastPageBtn);};
     setActivePage(currentPage);
-    await displayPlants(url, currentPage, itemsPerPage);
+    // await displayPlants(url, currentPage, itemsPerPage);
+    await baseEntity.displayData(type, method, props);
+
     
     
     //ADD LISTENERS
@@ -148,7 +156,8 @@ export const  pagination = async (url, method, page, itemsPerPage)=> {
 
         handleButtonsState(currentPage, numberOfPages, prevBtn, nextBtn, goToFirstPageBtn, goToLastPageBtn);
         
-        await displayPlants(url, currentPage, itemsPerPage);
+        // await displayPlants(url, currentPage, itemsPerPage);
+        await baseEntity.displayData(type, method, [currentPage, perPage]);
         pagination.innerHTML = await checkPages(currentPage, pagesFactor, numberOfPages);
         
         setActivePage(currentPage);
@@ -164,7 +173,8 @@ export const  pagination = async (url, method, page, itemsPerPage)=> {
         pagination.innerHTML = await checkPages(currentPage, pagesFactor, numberOfPages);
         setActivePage(currentPage);
         
-        await displayPlants(url, currentPage, itemsPerPage);
+        // await displayPlants(url, currentPage, itemsPerPage);
+        await baseEntity.displayData(type, method, [currentPage, perPage]);
     })
 
     nextBtn.addEventListener('click', async (e)=> {
@@ -174,7 +184,7 @@ export const  pagination = async (url, method, page, itemsPerPage)=> {
         pagination.innerHTML = await checkPages(currentPage, pagesFactor, numberOfPages);
         setActivePage(currentPage);
         
-        await displayPlants(url, currentPage, itemsPerPage);
+        await baseEntity.displayData(type, method, [currentPage, perPage]);
     })
 
     // ADD SKIP BUTONS FUNCTIONALITY
@@ -186,7 +196,7 @@ export const  pagination = async (url, method, page, itemsPerPage)=> {
         pagination.innerHTML = await checkPages(currentPage, pagesFactor, numberOfPages);
         setActivePage(currentPage);
 
-        await displayPlants(url, currentPage, itemsPerPage);
+        await baseEntity.displayData(type, method, [currentPage, perPage]);
 
 
     });
@@ -198,7 +208,7 @@ export const  pagination = async (url, method, page, itemsPerPage)=> {
         pagination.innerHTML = await checkPages(currentPage, pagesFactor, numberOfPages);
         setActivePage(currentPage);
         
-        await displayPlants(url, currentPage, itemsPerPage);
+        await baseEntity.displayData(type, method, [currentPage, perPage]);
 
     })
 

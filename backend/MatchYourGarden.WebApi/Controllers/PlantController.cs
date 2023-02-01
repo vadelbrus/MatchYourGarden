@@ -38,6 +38,13 @@ namespace MatchYourGarden.WebApi.Controllers
         public IActionResult Create([FromBody] PlantDto plant)
         {
             var entity = Map<PlantDto, Plant>(plant);
+
+            // this is done, to let EF know that all gardens already exist in the DB
+            foreach (var garden in entity.Gardens)
+            {
+                _dataContext.Entry(garden).State = Microsoft.EntityFrameworkCore.EntityState.Unchanged;
+            }
+            
             var response = _plantService.Create(entity);
             return ApiResponse<Plant, PlantDto>(response);
         }

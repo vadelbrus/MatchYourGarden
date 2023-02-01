@@ -1,5 +1,6 @@
 ﻿using MatchYourGarden.DataModel;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace MatchYourGarden.Persistence
 {
@@ -11,6 +12,7 @@ namespace MatchYourGarden.Persistence
 
         public DataContext(DbContextOptions<DataContext> contextOptions) : base(contextOptions)
         {
+            
         }
 
         public override int SaveChanges()
@@ -29,6 +31,11 @@ namespace MatchYourGarden.Persistence
         {
             SetEntityDates();
             return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
+
+        public override EntityEntry Entry(object entity)
+        {
+            return base.Entry(entity);
         }
 
         private void SetEntityDates()

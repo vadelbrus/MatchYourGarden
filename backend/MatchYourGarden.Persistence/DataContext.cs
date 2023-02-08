@@ -15,6 +15,12 @@ namespace MatchYourGarden.Persistence
             
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Plant>().Navigation(e => e.Gardens).AutoInclude();
+        }
+
         public override int SaveChanges()
         {
             SetEntityDates();

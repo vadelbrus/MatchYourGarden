@@ -18,6 +18,11 @@ namespace MatchYourGarden.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Plant>().HasIndex(p => p.Name).IsUnique();
+            modelBuilder.Entity<Plant>().HasIndex(p => p.LatinName).IsUnique();
+            modelBuilder.Entity<Garden>().HasIndex(p => p.Name).IsUnique();
+
             modelBuilder.Entity<Plant>().Navigation(e => e.Gardens).AutoInclude();
         }
 

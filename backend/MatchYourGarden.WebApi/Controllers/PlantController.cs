@@ -49,6 +49,13 @@ namespace MatchYourGarden.WebApi.Controllers
             return ApiResponse<Plant, PlantDto>(response);
         }
 
+        [HttpDelete("delete/{plantId}")]
+        public IActionResult Delete(Guid plantId)
+        {
+            var response = _plantService.Delete(plantId);
+            return ApiResponse<Plant, PlantDto>(response);
+        }
+
         [HttpPost("relate")]
         public IActionResult Relate(Guid plantId, Guid gardenId)
         {            

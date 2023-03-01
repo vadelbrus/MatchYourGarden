@@ -12,6 +12,17 @@ namespace MatchYourGarden.Services
             
         }
 
+        public ServiceResponse<Plant[]> GetAllByName(string name)
+        {
+            if (name == null || name.Length < 3)
+            {
+                return new ServiceResponse<Plant[]>("Name should be at least 3 letters long.", 404);
+            }
+
+            var matchingPlants = _dataContext.Plants.Where(g => g.Name.Contains(name)).ToArray();
+            return new ServiceResponse<Plant[]>(matchingPlants);
+        }
+
         public ServiceResponse Relate(Guid plantId, Guid gardenId)
         {
             var plant = _dataContext.Plants.Include(p => p.Gardens).FirstOrDefault(p => p.Id == plantId);

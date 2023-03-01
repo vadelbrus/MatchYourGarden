@@ -5,5 +5,6 @@ namespace MatchYourGarden.Services.Contracts
     public interface IPlantService : IServiceBase<Plant>
     {
         public ServiceResponse Relate(Guid plantId, Guid gardenId);
+        public ServiceResponse<Plant[]> GetAllByName(string name);
     }
 }

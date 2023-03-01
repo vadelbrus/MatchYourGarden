@@ -49,6 +49,13 @@ namespace MatchYourGarden.WebApi.Controllers
             return ApiResponse<Plant, PlantDto>(response);
         }
 
+        [HttpGet("getallbyname/{name}")]
+        public IActionResult GetAllByName(string name)
+        {
+            var response = _plantService.GetAllByName(name);
+            return ApiResponse<Plant[], PlantListItemDto[]>(response);
+        }
+
         [HttpDelete("delete/{plantId}")]
         public IActionResult Delete(Guid plantId)
         {

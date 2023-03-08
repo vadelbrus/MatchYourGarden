@@ -32,7 +32,7 @@ namespace MatchYourGarden.Services
                 return new ServiceResponse<ImageDto>("Unsupported file format.", 415);
             }
 
-            string filePath = Path.Combine(_options.Value.UploadBasePath, _options.Value.ImagesDirectory, relativePath);
+            string filePath = Path.Combine(_options.Value.UploadBasePath, _options.Value.BasePath, relativePath);
             
             if (!Directory.Exists(filePath))
             {
@@ -44,15 +44,15 @@ namespace MatchYourGarden.Services
                 image.CopyTo(fs);
             }            
             
-            return new ServiceResponse<ImageDto>(new ImageDto(Guid.Empty, $"{_options.Value.ImagesDirectory}/{relativePath}/{fileName}"));
+            return new ServiceResponse<ImageDto>(new ImageDto(Guid.Empty, $"{_options.Value.BasePath}/{relativePath}/{fileName}"));
         }
     }
 
-    public class FileUploadOptions
+    public class FileUploadOptions : IBasePath
     {
         public int MaxSize { get; set; }
         public string UploadBasePath { get; set; }
-        public string ImagesDirectory { get; set; }
+        public string BasePath { get; set; }
         public string[] AllowedMimeTypes { get; set; }
     }
 }

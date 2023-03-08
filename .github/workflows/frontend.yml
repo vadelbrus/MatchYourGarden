@@ -18,11 +18,11 @@ jobs:
       with:
         azcliversion: 2.0.72
         inlineScript: |
-          az storage blob delete-batch -s "\$web" --connection-string "DefaultEndpointsProtocol=https;AccountName=matchyourgarden;AccountKey=wE4isJJfT6DtVKKvH+Ti2X6qnJ19e8Oy26nMIXXfoko2gYtIatZsZhGp3fn2kISu9UhxQw/+S1c5+AStR3MZ1g==;EndpointSuffix=core.windows.net"   
+          az storage blob delete-batch -s "\$web" --connection-string ${{ secrets.ConnectionString }}
              
     - name: Deploy to Azure
       uses: tibor19/static-website-deploy@v1
       with:
         enabled-static-website: 'true'
         folder: './frontend/'        
-        connection-string: 'DefaultEndpointsProtocol=https;AccountName=matchyourgarden;AccountKey=wE4isJJfT6DtVKKvH+Ti2X6qnJ19e8Oy26nMIXXfoko2gYtIatZsZhGp3fn2kISu9UhxQw/+S1c5+AStR3MZ1g==;EndpointSuffix=core.windows.net'
+        connection-string: ${{ secrets.ConnectionString }}

@@ -1,4 +1,5 @@
 ﻿using MatchYourGarden.DataModel;
+using Microsoft.AspNetCore.Http;
 
 namespace MatchYourGarden.Services.Contracts
 {
@@ -6,5 +7,6 @@ namespace MatchYourGarden.Services.Contracts
     {
         public ServiceResponse Relate(Guid plantId, Guid gardenId);
         public ServiceResponse<Plant[]> GetAllByName(string name);
+        public ServiceResponse<string> UploadImage(Guid plantId, IFormFile image);
     }
 }

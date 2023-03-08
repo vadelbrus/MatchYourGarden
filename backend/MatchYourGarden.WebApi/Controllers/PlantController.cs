@@ -13,7 +13,7 @@ namespace MatchYourGarden.WebApi.Controllers
     public class PlantController : BaseController
     {
         private readonly IPlantService _plantService;
-        
+
         public PlantController(ILogger<PlantController> logger, IDataContext dataContext, IPlantService service, IMapper mapper) : base(logger, dataContext, mapper)
         {
             _plantService = service;
@@ -47,6 +47,13 @@ namespace MatchYourGarden.WebApi.Controllers
             
             var response = _plantService.Create(entity);
             return ApiResponse<Plant, PlantDto>(response);
+        }
+
+        [HttpPost("uploadimage")]
+        public IActionResult UploadImage([FromForm(Name = "id")] Guid id, [FromForm(Name = "image")] IFormFile image)
+        {
+            var response = _plantService.UploadImage(id, image);
+            return ApiResponse<string>(response);
         }
 
         [HttpGet("getallbyname/{name}")]

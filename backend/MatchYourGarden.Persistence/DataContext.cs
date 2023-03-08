@@ -24,6 +24,7 @@ namespace MatchYourGarden.Persistence
             modelBuilder.Entity<Garden>().HasIndex(p => p.Name).IsUnique();
 
             modelBuilder.Entity<Plant>().Navigation(e => e.Gardens).AutoInclude();
+            modelBuilder.Entity<Plant>().Navigation(e => e.Images).AutoInclude();
         }
 
         public override int SaveChanges()

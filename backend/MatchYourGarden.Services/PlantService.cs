@@ -1,15 +1,20 @@
-﻿using MatchYourGarden.DataModel;
+﻿using MatchYourGarden.Common;
+using MatchYourGarden.DataModel;
 using MatchYourGarden.Persistence;
 using MatchYourGarden.Services.Contracts;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 namespace MatchYourGarden.Services
 {
     public class PlantService : ServiceBase<Plant>, IPlantService
     {
-        public PlantService (IDataContext dataContext) : base (dataContext)
+        private IFileUploadService _fileUploadService;
+
+        public PlantService (IDataContext dataContext, IFileUploadService fileUploadService) : base (dataContext)
         {
-            
+            _fileUploadService = fileUploadService;
         }
 
         public ServiceResponse<Plant[]> GetAllByName(string name)
@@ -53,6 +58,47 @@ namespace MatchYourGarden.Services
             catch
             {
                 return new ServiceResponse("Server error. Cannot save to the database.", 500);
+            }            
+        }
+    
+        public ServiceResponse<string> UploadImage(Guid plantId, IFormFile image)
+        {
+            using (var ms = new MemoryStream())
+            {
+                image.CopyTo(ms);
+                var bytes = ms.ToArray();
+                var hash = bytes.MD5();
+                var fileName = $"{hash}.{image.ContentType.ContentTypeToFileExtension()}";
+
+                var plant = _dataContext.Plants.Find(plantId);
+
+                if (plant == null)
+                {
+                    return new ServiceResponse<string>($"Plant {plantId} does not exist in the database.", 404);
+                }
+
+                if (plant.Images.Any(i => i.Name.Equals(fileName)))
+                {
+                    return new ServiceResponse<string>($"Image already exists.", 409);
+                }
+
+                var response = _fileUploadService.Upload($"plants/{plantId}", fileName, image);
+                
+                // if file uploaded we store that information in the DB
+                if (response.IsSuccess())
+                {
+                    try
+                    {
+                        plant.Images.Add(new PlantImage(fileName));
+                        _dataContext.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        return new ServiceResponse<string>(e.Message, 500);
+                    }
+                }
+
+                return response;
             }            
         }
     }

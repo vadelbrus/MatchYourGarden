@@ -21,14 +21,35 @@ namespace MatchYourGarden.WebApi.Controllers
             _mapper = mapper;
         }
 
-        protected IActionResult ApiResponse(ServiceResponse serviceResponse)
+        protected IActionResult ApiResponseSuccess()
+        {
+            return Ok();
+        }
+
+        protected IActionResult ApiResponse<T>(ServiceResponse<T> serviceResponse)
         {
             if (serviceResponse.StatusCode == 200)
             {
+                var dto = serviceResponse.Data;
+                return RequestResult(serviceResponse, new Response<T>(dto));
+            }
+
+            return ApiResponseError(serviceResponse.StatusCode, serviceResponse.ErrorMessage);
+        }
+
+        protected IActionResult ApiResponseError(int statusCode, string errorMessage)
+        {
+            return StatusCode(statusCode, new Response(errorMessage));
+        }
+
+        protected IActionResult ApiResponse(ServiceResponse serviceResponse)
+        {
+            if (serviceResponse.StatusCode == 200)
+            {                
                 return Ok();
             }
 
-            return Error(serviceResponse.StatusCode, serviceResponse.ErrorMessage);
+            return ApiResponseError(serviceResponse.StatusCode, serviceResponse.ErrorMessage);
         }
 
         protected IActionResult ApiResponse<TModel, TDto>(ServiceResponse<TModel> serviceResponse)
@@ -39,7 +60,7 @@ namespace MatchYourGarden.WebApi.Controllers
                 return RequestResult(serviceResponse, new Response<TDto>(dto));
             }
 
-            return Error(serviceResponse.StatusCode, serviceResponse.ErrorMessage);
+            return ApiResponseError(serviceResponse.StatusCode, serviceResponse.ErrorMessage);
         }
 
         protected IActionResult ApiPaginatedResultResponse<TModel, TDto>(ServiceResponse<TModel> serviceResponse, int page, int count, int totalCount)
@@ -50,7 +71,7 @@ namespace MatchYourGarden.WebApi.Controllers
                 return RequestResult(serviceResponse, new PaginatedResponse<TDto>(dto, page, count, totalCount));
             }
 
-            return Error(serviceResponse.StatusCode, serviceResponse.ErrorMessage);
+            return ApiResponseError(serviceResponse.StatusCode, serviceResponse.ErrorMessage);
         }
 
         protected T2 Map<T1, T2>(T1 obj)
@@ -61,11 +82,6 @@ namespace MatchYourGarden.WebApi.Controllers
         private IActionResult RequestResult(IServiceResponse response, IResponse result)
         {
             return Ok(result);
-        }
-
-        private IActionResult Error(int statusCode, string error)
-        {
-            return StatusCode(statusCode, new Response(error));
         }
     }
 

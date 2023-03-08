@@ -45,7 +45,7 @@ namespace MatchYourGarden.Services
                 }                
             }
 
-            return new ServiceResponse<ImageDto>(new ImageDto(Guid.Empty, $"{_options.Value.BasePath}/{_options.Value.ContainerName}/{relativePath}/{fileName}"));
+            return new ServiceResponse<ImageDto>(new ImageDto(Guid.Empty, $"{_options.Value.BaseUrl}/{_options.Value.ContainerName}/{relativePath}/{fileName}"));
         }
 
         public ServiceResponse Delete(string filePath)
@@ -64,13 +64,13 @@ namespace MatchYourGarden.Services
         }
     }
 
-    public class AzureBlobStorageOptions : IBasePath
+    public class AzureBlobStorageOptions : IBaseUrl
     {
         public int MaxSize { get; set; }
         public string ConnectionString { get; set; }
         public string ContainerName { get; set; }
         public string ImagesDirectory { get; set; }
         public string[] AllowedMimeTypes { get; set; }
-        public string BasePath { get; set; }
+        public string BaseUrl { get; set; }
     }
 }

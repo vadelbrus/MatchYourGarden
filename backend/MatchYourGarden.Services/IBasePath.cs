@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Http;
 
 namespace MatchYourGarden.Services
 {
-    public interface IBasePath
+    public interface IBaseUrl
     {
-        string BasePath { get; }
+        string BaseUrl { get; }
     }
 }

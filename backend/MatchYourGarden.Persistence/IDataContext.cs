@@ -7,6 +7,7 @@ namespace MatchYourGarden.Persistence
     public interface IDataContext
     {
         public DbSet<Plant> Plants { get; }
+        public DbSet<PlantImage> PlantImage { get; }
         public DbSet<Garden> Gardens { get; }
         public DbSet<T> Entities<T>() where T : EntityBase;
         public EntityEntry Entry(object entity);

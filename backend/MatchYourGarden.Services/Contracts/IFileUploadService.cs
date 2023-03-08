@@ -7,5 +7,6 @@ namespace MatchYourGarden.Services.Contracts
     public interface IFileUploadService
     {
         ServiceResponse<ImageDto> Upload(string relativePath, string fileName, IFormFile image);
+        ServiceResponse Delete(string filePath);
     }
 }

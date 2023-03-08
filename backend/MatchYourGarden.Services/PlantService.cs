@@ -104,5 +104,33 @@ namespace MatchYourGarden.Services
                 return response;
             }            
         }
+
+        public ServiceResponse DeleteImage(Guid imageId)
+        {
+            var image = _dataContext.PlantImage.Find(imageId);
+
+            if (image == null)
+            {
+                return new ServiceResponse("Cannot remove image, because it does not exist.", 404);
+            }
+            
+            var response = _fileUploadService.Delete($"images/plants/{image.PlantId}/{image.Name}");
+
+            if (!response.IsSuccess())
+            {
+                return response;
+            }
+
+            try
+            {
+                _dataContext.PlantImage.Remove(image);
+                _dataContext.SaveChanges();
+                return response;
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse(e.Message, 500);
+            }
+        }
     }
 }

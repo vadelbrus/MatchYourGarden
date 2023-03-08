@@ -20,6 +20,11 @@ namespace MatchYourGarden.Services
             _options = options;
         }
 
+        public ServiceResponse Delete(string filePath)
+        {
+            throw new NotImplementedException();
+        }
+
         public ServiceResponse<ImageDto> Upload(string relativePath, string fileName, IFormFile image)
         {
             if (image.Length > _options.Value.MaxSize)

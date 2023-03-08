@@ -9,5 +9,6 @@ namespace MatchYourGarden.Services.Contracts
         public ServiceResponse Relate(Guid plantId, Guid gardenId);
         public ServiceResponse<Plant[]> GetAllByName(string name);
         public ServiceResponse<ImageDto> UploadImage(Guid plantId, IFormFile image);
+        public ServiceResponse DeleteImage(Guid imageId);
     }
 }

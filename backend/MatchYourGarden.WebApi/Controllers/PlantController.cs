@@ -56,6 +56,13 @@ namespace MatchYourGarden.WebApi.Controllers
             return ApiResponse<ImageDto>(response);
         }
 
+        [HttpDelete("deleteimage/{id}")]
+        public IActionResult DeleteImage(Guid id)
+        {
+            var response = _plantService.DeleteImage(id);
+            return ApiResponse(response);
+        }
+
         [HttpGet("getallbyname/{name}")]
         public IActionResult GetAllByName(string name)
         {

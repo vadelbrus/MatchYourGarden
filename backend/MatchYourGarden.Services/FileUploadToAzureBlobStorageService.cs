@@ -47,6 +47,21 @@ namespace MatchYourGarden.Services
 
             return new ServiceResponse<ImageDto>(new ImageDto(Guid.Empty, $"{_options.Value.BasePath}/{_options.Value.ContainerName}/{relativePath}/{fileName}"));
         }
+
+        public ServiceResponse Delete(string filePath)
+        {
+            try
+            {
+                var container = new BlobContainerClient(_options.Value.ConnectionString, _options.Value.ContainerName);
+                var blobClient = container.GetBlobClient(filePath);
+                blobClient.DeleteIfExists();
+                return new ServiceResponse();
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse(e.Message, 500);
+            }
+        }
     }
 
     public class AzureBlobStorageOptions : IBasePath

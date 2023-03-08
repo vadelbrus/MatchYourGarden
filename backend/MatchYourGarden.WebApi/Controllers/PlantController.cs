@@ -53,7 +53,7 @@ namespace MatchYourGarden.WebApi.Controllers
         public IActionResult UploadImage([FromForm(Name = "id")] Guid id, [FromForm(Name = "image")] IFormFile image)
         {
             var response = _plantService.UploadImage(id, image);
-            return ApiResponse<string>(response);
+            return ApiResponse<ImageDto>(response);
         }
 
         [HttpGet("getallbyname/{name}")]

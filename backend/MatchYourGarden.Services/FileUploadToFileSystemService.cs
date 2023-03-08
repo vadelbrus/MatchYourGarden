@@ -1,4 +1,5 @@
-﻿using MatchYourGarden.Persistence;
+﻿using MatchYourGarden.Dtos;
+using MatchYourGarden.Persistence;
 using MatchYourGarden.Services.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
@@ -19,16 +20,16 @@ namespace MatchYourGarden.Services
             _options = options;
         }
 
-        public ServiceResponse<string> Upload(string relativePath, string fileName, IFormFile image)
+        public ServiceResponse<ImageDto> Upload(string relativePath, string fileName, IFormFile image)
         {
             if (image.Length > _options.Value.MaxSize)
             {
-                return new ServiceResponse<string>("File too large.", 413);
+                return new ServiceResponse<ImageDto>("File too large.", 413);
             }
 
             if (!_options.Value.AllowedMimeTypes.Contains(image.ContentType))
             {
-                return new ServiceResponse<string>("Unsupported file format.", 415);
+                return new ServiceResponse<ImageDto>("Unsupported file format.", 415);
             }
 
             string filePath = Path.Combine(_options.Value.UploadBasePath, _options.Value.ImagesDirectory, relativePath);
@@ -43,7 +44,7 @@ namespace MatchYourGarden.Services
                 image.CopyTo(fs);
             }            
             
-            return new ServiceResponse<string>($"{_options.Value.ImagesDirectory}/{relativePath}/{fileName}");
+            return new ServiceResponse<ImageDto>(new ImageDto(Guid.Empty, $"{_options.Value.ImagesDirectory}/{relativePath}/{fileName}"));
         }
     }
 

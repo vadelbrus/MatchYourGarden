@@ -1,5 +1,6 @@
 ﻿using MatchYourGarden.Common;
 using MatchYourGarden.DataModel;
+using MatchYourGarden.Dtos;
 using MatchYourGarden.Persistence;
 using MatchYourGarden.Services.Contracts;
 using Microsoft.AspNetCore.Http;
@@ -61,7 +62,7 @@ namespace MatchYourGarden.Services
             }            
         }
     
-        public ServiceResponse<string> UploadImage(Guid plantId, IFormFile image)
+        public ServiceResponse<ImageDto> UploadImage(Guid plantId, IFormFile image)
         {
             using (var ms = new MemoryStream())
             {
@@ -74,12 +75,12 @@ namespace MatchYourGarden.Services
 
                 if (plant == null)
                 {
-                    return new ServiceResponse<string>($"Plant {plantId} does not exist in the database.", 404);
+                    return new ServiceResponse<ImageDto>($"Plant {plantId} does not exist in the database.", 404);
                 }
 
                 if (plant.Images.Any(i => i.Name.Equals(fileName)))
                 {
-                    return new ServiceResponse<string>($"Image already exists.", 409);
+                    return new ServiceResponse<ImageDto>($"Image already exists.", 409);
                 }
 
                 var response = _fileUploadService.Upload($"plants/{plantId}", fileName, image);
@@ -89,12 +90,14 @@ namespace MatchYourGarden.Services
                 {
                     try
                     {
-                        plant.Images.Add(new PlantImage(fileName));
+                        var plantImage = new PlantImage(fileName);
+                        plant.Images.Add(plantImage);
                         _dataContext.SaveChanges();
+                        response.Data.Id = plantImage.Id;
                     }
                     catch (Exception e)
                     {
-                        return new ServiceResponse<string>(e.Message, 500);
+                        return new ServiceResponse<ImageDto>(e.Message, 500);
                     }
                 }
 

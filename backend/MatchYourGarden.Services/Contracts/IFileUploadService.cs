@@ -1,10 +1,11 @@
 ﻿using MatchYourGarden.DataModel;
+using MatchYourGarden.Dtos;
 using Microsoft.AspNetCore.Http;
 
 namespace MatchYourGarden.Services.Contracts
 {
     public interface IFileUploadService
     {
-        ServiceResponse<string> Upload(string relativePath, string fileName, IFormFile image);
+        ServiceResponse<ImageDto> Upload(string relativePath, string fileName, IFormFile image);
     }
 }

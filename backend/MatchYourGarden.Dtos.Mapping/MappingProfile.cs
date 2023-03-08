@@ -14,7 +14,7 @@ namespace MatchYourGarden.Dtos.Mapping
 
             // Ugly. "images" should come from FileUploadOptions.ImagesDirectory config section
             // Leaving for now
-            CreateMap<PlantImage, string>().ConvertUsing(p => $"images/plants/{p.PlantId}/{p.Name}");
+            CreateMap<PlantImage, ImageDto>().ConvertUsing(p => new ImageDto(p.Id, $"images/plants/{p.PlantId}/{p.Name}"));
 
             CreateMap<Garden, GardenDto>();
             CreateMap<GardenDto, Garden>();

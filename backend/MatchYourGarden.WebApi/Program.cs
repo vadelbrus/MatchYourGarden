@@ -21,13 +21,12 @@ builder.Services.AddScoped<IDataContext, DataContext>();
 builder.Services.AddScoped<IPlantService, PlantService>();
 builder.Services.AddScoped<IGardenService, GardenService>();
 
-//var settings = builder.Configuration.GetSection(nameof(FileUploadOptions));
-//builder.Services.Configure<FileUploadOptions>(settings);
-//builder.Services.AddScoped<IFileUploadService, FileUploadToFileSystemService>();
 
-var settings = builder.Configuration.GetSection(nameof(AzureBlobStorageOptions));
-builder.Services.Configure<AzureBlobStorageOptions>(settings);
-builder.Services.AddScoped<IFileUploadService, FileUploadToAzureBlobStorageService>();
+var settings = builder.Configuration.GetSection(nameof(FileUploadOptions));
+builder.Services.Configure<FileUploadOptions>(settings);
+
+//builder.Services.AddScoped<IFileUploadService, FileUploadToFileSystemService>();
+builder.Services.AddScoped<IFileSystemService, FSAzureBlobStorageService>();
 
 // Add the AutoMapper to our DI container
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

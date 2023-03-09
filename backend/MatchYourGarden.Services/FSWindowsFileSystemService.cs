@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace MatchYourGarden.Services
 {
-    public class FileUploadToFileSystemService : IFileUploadService
+    public class FSWindowsFileSystemService : IFileSystemService
     {
         private readonly IOptions<FileUploadOptions> _options;
 
-        public FileUploadToFileSystemService(IOptions<FileUploadOptions> options)
+        public FSWindowsFileSystemService(IOptions<FileUploadOptions> options)
         {
             _options = options;
         }
@@ -37,7 +37,7 @@ namespace MatchYourGarden.Services
                 return new ServiceResponse<ImageDto>("Unsupported file format.", 415);
             }
 
-            string filePath = Path.Combine(_options.Value.UploadDirectory, relativePath);
+            string filePath = Path.Combine(_options.Value.UploadDirectoryOrContainerName, relativePath);
             
             if (!Directory.Exists(filePath))
             {
@@ -49,15 +49,20 @@ namespace MatchYourGarden.Services
                 image.CopyTo(fs);
             }            
             
-            return new ServiceResponse<ImageDto>(new ImageDto(Guid.Empty, $"{_options.Value.UploadDirectory}/{relativePath}/{fileName}"));
+            return new ServiceResponse<ImageDto>(new ImageDto(Guid.Empty, $"{_options.Value.UploadDirectoryOrContainerName}/{relativePath}/{fileName}"));
         }
     }
 
-    public class FileUploadOptions : IBaseUrl
+    public class FileUploadOptions
     {
         public int MaxSize { get; set; }
-        public string UploadDirectory { get; set; }
+        public string UploadDirectoryOrContainerName { get; set; }
+        public string AzureConnectionString { get; set; }
+        public string PlantsDirectory { get; set; }
+        public string GardensDirectory { get; set; }
         public string BaseUrl { get; set; }
         public string[] AllowedMimeTypes { get; set; }
+        public string PlantsUrl => $"{BaseUrl}/{UploadDirectoryOrContainerName}/{PlantsDirectory}";
+        public string GardensUrl => $"{BaseUrl}/{UploadDirectoryOrContainerName}/{GardensDirectory}";
     }
 }

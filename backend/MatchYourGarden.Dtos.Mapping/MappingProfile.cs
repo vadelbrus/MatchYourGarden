@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MatchYourGarden.DataModel;
+using MatchYourGarden.Dtos.Mapping.MappingActions;
 using MatchYourGarden.Services;
 
 namespace MatchYourGarden.Dtos.Mapping
@@ -12,12 +13,7 @@ namespace MatchYourGarden.Dtos.Mapping
             CreateMap<PlantDto, Plant>();
             CreateMap<Plant, PlantListItemDto>();
             CreateMap<PlantListItemDto, Plant>();
-
-            // Ugly. "images" should come from FileUploadOptions.ImagesDirectory config section
-            // Leaving for now
-            var baseUrl = "https://matchyourgarden.blob.core.windows.net";
-            CreateMap<PlantImage, ImageDto>().ConvertUsing(p => new ImageDto(p.Id, $"{baseUrl}/images/plants/{p.PlantId}/{p.Name}"));
-
+            CreateMap<PlantImage, ImageDto>().AfterMap<PlantImageDtoAction>();
             CreateMap<Garden, GardenDto>();
             CreateMap<GardenDto, Garden>();
             CreateMap<Garden, GardenListItemDto>();

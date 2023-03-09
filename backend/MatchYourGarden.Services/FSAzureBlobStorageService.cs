@@ -7,12 +7,12 @@ using MatchYourGarden.Services.Contracts;
 
 namespace MatchYourGarden.Services
 {
-    public class FileUploadToAzureBlobStorageService : IFileUploadService
+    public class FSAzureBlobStorageService : IFileSystemService
     {
-        private readonly IOptions<AzureBlobStorageOptions> _options;
+        private readonly IOptions<FileUploadOptions> _options;
         //private readonly IOptions<FileUploadOptions> _options;
 
-        public FileUploadToAzureBlobStorageService(IOptions<AzureBlobStorageOptions> options)
+        public FSAzureBlobStorageService(IOptions<FileUploadOptions> options)
         {
             _options = options;
         }
@@ -29,7 +29,7 @@ namespace MatchYourGarden.Services
                 return new ServiceResponse<ImageDto>("Unsupported file format.", 415);
             }
 
-            var container = new BlobContainerClient(_options.Value.ConnectionString, _options.Value.ContainerName);            
+            var container = new BlobContainerClient(_options.Value.AzureConnectionString, _options.Value.UploadDirectoryOrContainerName);            
             var blobName = $"{relativePath}/{fileName}";
             var blobClient = container.GetBlobClient(blobName);
 
@@ -45,14 +45,14 @@ namespace MatchYourGarden.Services
                 }                
             }
 
-            return new ServiceResponse<ImageDto>(new ImageDto(Guid.Empty, $"{_options.Value.BaseUrl}/{_options.Value.ContainerName}/{relativePath}/{fileName}"));
+            return new ServiceResponse<ImageDto>(new ImageDto(Guid.Empty, $"{_options.Value.BaseUrl}/{_options.Value.UploadDirectoryOrContainerName}/{relativePath}/{fileName}"));
         }
 
         public ServiceResponse Delete(string filePath)
         {
             try
             {
-                var container = new BlobContainerClient(_options.Value.ConnectionString, _options.Value.ContainerName);
+                var container = new BlobContainerClient(_options.Value.AzureConnectionString, _options.Value.UploadDirectoryOrContainerName);
                 var blobClient = container.GetBlobClient(filePath);
                 blobClient.DeleteIfExists();
                 return new ServiceResponse();
@@ -62,15 +62,5 @@ namespace MatchYourGarden.Services
                 return new ServiceResponse(e.Message, 500);
             }
         }
-    }
-
-    public class AzureBlobStorageOptions : IBaseUrl
-    {
-        public int MaxSize { get; set; }
-        public string ConnectionString { get; set; }
-        public string ContainerName { get; set; }
-        public string ImagesDirectory { get; set; }
-        public string[] AllowedMimeTypes { get; set; }
-        public string BaseUrl { get; set; }
     }
 }

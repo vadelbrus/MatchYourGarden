@@ -11,9 +11,9 @@ namespace MatchYourGarden.Services
 {
     public class PlantService : ServiceBase<Plant>, IPlantService
     {
-        private IFileUploadService _fileUploadService;
+        private IFileSystemService _fileUploadService;
 
-        public PlantService (IDataContext dataContext, IFileUploadService fileUploadService) : base (dataContext)
+        public PlantService (IDataContext dataContext, IFileSystemService fileUploadService) : base (dataContext)
         {
             _fileUploadService = fileUploadService;
         }

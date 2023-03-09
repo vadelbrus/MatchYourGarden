@@ -1,0 +1,28 @@
+name: Frontend - copy
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'frontend/**'
+       
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@main 
+      
+    - name: Clear Azure storage
+      uses: azure/CLI@v1
+      with:
+        azcliversion: 2.0.72
+        inlineScript: |
+          az storage blob delete-batch -s "\$web" --connection-string ${{ secrets.ConnectionString }}
+             
+    - name: Deploy to Azure
+      uses: tibor19/static-website-deploy@v1
+      with:
+        enabled-static-website: 'true'
+        folder: './frontend/'        
+        connection-string: ${{ secrets.ConnectionString }}

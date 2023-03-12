@@ -18,9 +18,15 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<DataContext>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<IDataContext, DataContext>();
-
 builder.Services.AddScoped<IPlantService, PlantService>();
 builder.Services.AddScoped<IGardenService, GardenService>();
+
+
+var settings = builder.Configuration.GetSection(nameof(FileUploadOptions));
+builder.Services.Configure<FileUploadOptions>(settings);
+
+//builder.Services.AddScoped<IFileUploadService, FileUploadToFileSystemService>();
+builder.Services.AddScoped<IFileSystemService, FSAzureBlobStorageService>();
 
 // Add the AutoMapper to our DI container
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

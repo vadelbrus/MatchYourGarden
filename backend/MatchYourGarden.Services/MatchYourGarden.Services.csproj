@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.15.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MatchYourGarden.Common\MatchYourGarden.Common.csproj" />
     <ProjectReference Include="..\MatchYourGarden.Dtos\MatchYourGarden.Dtos.csproj" />
     <ProjectReference Include="..\MatchYourGarden.Persistence\MatchYourGarden.Persistence.csproj" />
   </ItemGroup>

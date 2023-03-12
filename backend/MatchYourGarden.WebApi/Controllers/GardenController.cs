@@ -34,6 +34,13 @@ namespace MatchYourGarden.WebApi.Controllers
             return ApiPaginatedResultResponse<Garden[], GardenListItemDto[]>(response, page, perPage, totalCount);
         }
 
+        [HttpGet("getallbyname/{name}")]
+        public IActionResult GetAllByName(string name)
+        {
+            var response = _gardenService.GetAllByName(name);
+            return ApiResponse<Garden[], GardenListItemDto[]>(response);
+        }
+
         [HttpPost("create")]
         public IActionResult Create([FromBody] GardenDto garden)
         {

@@ -52,6 +52,27 @@ namespace MatchYourGarden.Services
             }            
         }
 
+        public ServiceResponse<TModel> Delete(Guid id)
+        {
+            try
+            {
+                var entity = _dataContext.Entities<TModel>().Find(id);
+
+                if (entity is null)
+                {
+                    throw new Exception("Cannot delete entity, because it does not exist.");
+                }
+
+                _dataContext.Entities<TModel>().Remove(entity);
+                _dataContext.SaveChanges();
+                return new ServiceResponse<TModel>(entity);
+            }
+            catch (Exception e)
+            {
+                return new ServiceResponse<TModel>(e.Message, 500);
+            }
+        }
+
         public int GetCount()
         {
             return _dataContext.Entities<TModel>().Count();

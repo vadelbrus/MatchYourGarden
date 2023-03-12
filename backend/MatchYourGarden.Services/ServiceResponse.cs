@@ -4,6 +4,7 @@
     {        
         int StatusCode { get; }
         string? ErrorMessage { get; }
+        bool IsSuccess();
     }
 
     public class ServiceResponse : IServiceResponse
@@ -28,6 +29,11 @@
         {
             this.ErrorMessage = errorMessage;
             this.StatusCode = statusCode;
+        }
+
+        public bool IsSuccess()
+        {
+            return this.StatusCode == 200;
         }
     }
 

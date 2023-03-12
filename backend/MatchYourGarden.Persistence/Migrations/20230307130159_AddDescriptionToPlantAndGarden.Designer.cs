@@ -4,6 +4,7 @@ using MatchYourGarden.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MatchYourGarden.Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230307130159_AddDescriptionToPlantAndGarden")]
+    partial class AddDescriptionToPlantAndGarden
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,32 +100,6 @@ namespace MatchYourGarden.Persistence.Migrations
                     b.ToTable("Plants");
                 });
 
-            modelBuilder.Entity("MatchYourGarden.DataModel.PlantImage", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("DateCreated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateUpdated")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("PlantId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PlantId");
-
-                    b.ToTable("PlantImage");
-                });
-
             modelBuilder.Entity("GardenPlant", b =>
                 {
                     b.HasOne("MatchYourGarden.DataModel.Garden", null)
@@ -137,22 +113,6 @@ namespace MatchYourGarden.Persistence.Migrations
                         .HasForeignKey("PlantsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("MatchYourGarden.DataModel.PlantImage", b =>
-                {
-                    b.HasOne("MatchYourGarden.DataModel.Plant", "Plant")
-                        .WithMany("Images")
-                        .HasForeignKey("PlantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Plant");
-                });
-
-            modelBuilder.Entity("MatchYourGarden.DataModel.Plant", b =>
-                {
-                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }

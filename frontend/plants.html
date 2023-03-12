@@ -7,15 +7,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/8b819227a6.js" crossorigin="anonymous"></script>
+    
     <link rel="stylesheet" href="/styles/style.css">
-    <script type="module" src="/js/menu.js" defer ></script>
-    <script type="module" src="/js/plants.js" defer ></script>
+    <script type="module" src="./js/menu.js" defer ></script>
+    <script type="module" src="./js/components/Plants.js" defer ></script>
     <title>PLANTS</title>
 </head>
 <body class="page">
     <div class="page__wrapper">
         <nav class="page__nav nav">
             <div class="nav__inner">
+                <p class="nav__title">MATCH YOUR GARDEN</p>
                 <ul class="nav__list">
                     <li class="nav__item"><a href="/index.html" class="nav__link">Home</a></li>
                     <li class="nav__item"><a href="/plants.html" class="nav__link">Plants</a></li>
@@ -25,6 +28,7 @@
             </div>
         </nav>
         <header class="header">
+            <div class="header__inner">
              <a target="_self" href="/index.html" class="header__logo-link">
                 <img src="/img/logo-clover.png" alt="logo-icon" class="header__image">
             </a>
@@ -36,12 +40,32 @@
                     <span class="hamburger__bar"></span>
                 </div>
             </button>
+        </div>
+        <!-- <div class="header__actions-controll">
+            <div class="header__link-control">
+                <a href="/new-plant-card.html" class="header__add-link button" >Add new plant</a>
+            </div>
+            <div role="search" class="header__search search-box">
+                <input aria-label="search" type="search" placeholder="Search plant..." class="search-box__query">
+                <button aria-label="search" id="search-button" class="search-box__button"></button>
+            </div>
+        </div> -->
         </header>
         <main class="page__main main">
-                <div role="search" class="main__search search-box">
+                <!-- <div role="search" class="main__search search-box">
                     <input aria-label="search" type="search" placeholder="Type plant id or name" class="search-box__text">
                     <button aria-label="search" id="search-button" class="search-box__button"></button>
-                </div>
+                </div> -->
+                       <div class="main__actions-controll">
+            <div class="main__link-control">
+                <a href="/new-plant-card.html" class="main__add-link button" >Add new plant</a>
+            </div>
+            <div role="search" class="main__search search-box">
+                <input aria-label="search" type="search" placeholder="Search plant..." class="search-box__query">
+                <button aria-label="search" id="search-button" class="search-box__button"></button>
+            </div>
+        </div>
+      
         <section class="page__section section">
             <div class="section__container">
                 <select class="pagination__per-page" autocomplete = "off">
@@ -55,6 +79,7 @@
                            <tr class="list__row">
                             <td class="list__row-cell list__head-cell">Name</td>
                             <td class="list__row-cell list__head-cell">Latin name</td>
+                            <td class="list__row-cell list__head-cell"></td>
                             <td class="list__row-cell list__head-cell"></td>
                         </tr>
                     </thead>
@@ -70,7 +95,22 @@
         <footer class="page__footer footer">
             <p class="footer__title">Special thanks to Neveride</p>
         </footer>
+        <div class="search-mobile">
+            <div class="search-mobile__container">
+            <div class="search-mobile__header">
+                <p class="search-mobile__title">Search</p>
+                <button class="search-mobile__close-btn"><i class="fa-solid fa-xmark fa-2xl search-mobile__close-mark"></i></button>
+            </div>
+            <div class="search-mobile__query-container">
+                <input aria-label="search" type="search" autocomplete="off" placeholder="Type name or id..." class="search-mobile__query">
+                <i class="fa-solid fa-magnifying-glass fa-2xl search-mobile__glass"></i>
+            </div>
+            <div class="search-mobile__results"></div>            
+        </div>
     </div>
+        
+    </div>
+    
     
 </body>
 </html>

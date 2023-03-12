@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/style.css">
     <script type="module" src="/js/menu.js" defer ></script>
-    <script type="module" src="/js/gardens.js" defer ></script>
+    <script type="module" src="/js/components/Gardens.js" defer ></script>
     
     <!-- <script type="module" src="/js/main.js" defer ></script> -->
     <title>PLANTS</title>
@@ -44,6 +44,7 @@
                     <input aria-label="search" type="search" placeholder="Type plant id or name" class="search-box__text">
                     <button aria-label="search" id="search-button" class="search-box__button"></button>
                 </div>
+                <a href="/new-garden-card.html" class="main__add-button button" >Add new garden</a>
         <section class="page__section section">
             <div class="section__container">
                 <select class="pagination__per-page" autocomplete = "off">
@@ -56,7 +57,7 @@
                     <thead class="list__header">
                            <tr class="list__row">
                             <td class="list__row-cell list__head-cell">Name</td>
-                            <td class="list__row-cell list__head-cell">Latin name</td>
+                            <!-- <td class="list__row-cell list__head-cell">Latin name</td> -->
                             <td class="list__row-cell list__head-cell"></td>
                         </tr>
                     </thead>

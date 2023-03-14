@@ -1,7 +1,7 @@
 import { Api } from "./Api.js"
 import { BaseEntity } from "./BaseEntity.js"
-const API_URL = "https://matchyourgarden.azurewebsites.net";
-const api = new Api(API_URL);
+
+const api = new Api();
 const baseEntity = new BaseEntity(api);
 
 const disableButton = (button)=> {

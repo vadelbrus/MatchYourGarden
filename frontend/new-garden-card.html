@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles/style.css">
-    <script type="module" src="/js/components/PlantDetails.js" defer ></script>
+    <script type="module" src="/js/components/NewGarden.js" defer ></script>
     <title>Match Your Garden</title>
 </head>
 <body class="page-card">
@@ -26,6 +26,21 @@
         </header>
         <main class="page-card__main main-card">
             <section class="page-card__section main-card">
+                <form action="">
+                    <div class="form__group">
+                      <label for="name" class="form__label">Plant name</label>
+                      <input id="name" class="form__name" type="text">
+                    </div>
+                    <!-- <div class="form__group">
+                      <label for="latin" class="form__label">Latin name</label>
+                      <input id="latin" class="form__latin" type="text">
+                    </div> -->
+                    <!-- <div class="form__group">
+                        <label for="description">Description</label>
+                        <textarea id="description" class="form__textarea" name="textarea" id="" cols="30" rows="10" placeholder="write your description..."></textarea>
+                </div> -->
+                    <button class="form__button" type="submit">Add new garden</button>
+                  </form>
             </section>
         </main>
         <footer class="page-card__footer footer">

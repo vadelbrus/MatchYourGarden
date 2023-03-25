@@ -1,0 +1,90 @@
+.table-content {
+
+  &__table {
+    width: 100%;
+    table-layout: auto;
+    // width: 300px;
+    border-collapse: collapse;
+    box-shadow: 0 4px 8px 0px rgba($color: #000000, $alpha: 0.3);
+    @include breakpoint(xs) {
+      // width: 380px;
+    }
+  
+    @include breakpoint(md) {
+      // width: 440px;
+    }
+
+  }
+  
+ 
+  
+    &__header {
+      height: 40px;
+      font-size: $fs-ms;
+  
+      @include breakpoint(xs) {
+        font-size: $fs-md;
+      }
+  
+      @include breakpoint(sm) {
+        font-size: $fs-lg;
+      }
+    }
+  
+    &__head-cell {
+      color: $color-white-alpha-100;
+      background-color: $color-green-alpha-100;
+    }
+  
+    &__row {
+      height: 30px;
+      position: relative;
+      text-align: left;
+      background-color: #d3d3d3;
+  
+      &:nth-of-type(even) {
+        background-color: #f3f3f3;
+      }
+    }
+  
+    &__row-cell {
+      width: 40%;
+      padding: 5px;
+      word-break: break-all;
+    }
+  
+    &__body {
+      font-size: 1.2rem;
+  
+      @include breakpoint(xs) {
+        font-size: 1.3rem;
+      }
+  
+      @include breakpoint(sm) {
+        font-size: 1.4rem;
+      }
+    }
+  
+    &__row-link {
+      width: 20%;
+  
+      text-align: center;
+      color: $color-green-alpha-100;
+    }
+  
+    &__link {
+      text-decoration: none;
+      display: inline-block;
+      padding: 5px;
+      color: #009f6b;
+      cursor: pointer;
+    }
+
+  
+    &__delete-btn {
+      background-color: red;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+    }
+  }

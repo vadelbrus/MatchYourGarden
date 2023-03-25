@@ -1,0 +1,43 @@
+.main-card {
+    height: calc(100vh - 120px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  .card {
+    margin: 0 auto;
+    width: 240px;
+    height: 400px;
+    padding: 10px 30px;
+    background-color: $color-white-alpha-100;
+    border: 1px solid $color-green-alpha-100;
+    border-radius: 10px;
+  
+    &__title {
+      margin-bottom: 10px;
+      text-align: center;
+      font-size: $fs-lg;
+      font-weight: 300;
+    }
+  
+    &__info {
+      margin-bottom: 10px;
+      text-align: center;
+      font-size: $fs-xs;
+      font-weight: 300;
+    }
+  
+    &__image-wrapper {
+      display: block;
+      height: 210px;
+      border-radius: 10px;
+      background-color: red;
+    }
+  
+    &__img {
+      height: 100%;
+      border-radius: 10px;
+    }
+  }

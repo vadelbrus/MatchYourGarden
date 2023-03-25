@@ -9,16 +9,15 @@ export class Plants extends BaseEntity {
     this.render = render;
     this.page = 0;
     // this.plants = [];
-    const searchInput = document.querySelector(".main__search ");
-    const searchMobile = document.querySelector(".search-mobile");
-    // const searchMobileContainer = document.querySelector(".search-mobile__container");
-    // const searchMobileResults = document.querySelector(".search-mobile__results");
-    const queryInput = document.querySelector(".search-mobile__query");
-    
-    const searchInputCloseBtn = document.querySelector(".search-mobile__close-btn");
-    this.listBody = document.querySelector(".list__body");
+    this.searchInput = document.querySelector(".main__search-box");
+    this.searchModal = document.querySelector(".search-modal");
+    this.searchModalResults = document.querySelector(".search-modal__results");
+    this.queryInput = document.querySelector(".search-modal__query");
+    this.searchBox = document.querySelector(".plants-main__search");
+    this.searchInputCloseBtn = document.querySelector(".search-modal__close-btn");
+    this.tableBody = document.querySelector(".table-content__body");
 
-    this.listBody.addEventListener("click", async (e) => {
+    this.tableBody.addEventListener("click", async (e) => {
       if (e.target.tagName === "BUTTON") {
         e.preventDefault();
         const id = e.target.dataset.plantId;
@@ -26,63 +25,58 @@ export class Plants extends BaseEntity {
       }
     });
 
-    searchInput.addEventListener("click", (e)=> {
+    this.searchBox.addEventListener("click", (e)=> {
       
-      searchMobile.classList.add("search-mobile--active");
-      // searchMobile.style.visibility = "visible";
-      // searchMobileContainer.classList.add("search-mobile__container--active");
-      searchMobile.classList.add("search-mobile--visible");
+      this.searchModal.classList.add("search-modal--active");
+      this.searchModal.classList.add("search-modal--visible");
    
   
     })
 
-    queryInput.addEventListener("keyup", async (e)=> {
+    this.queryInput.addEventListener("keyup", async (e)=> {
       const value = e.target.value;
-      
+            
       if(value.length < 3) {
-        const searchMobileResults = document.querySelector(".search-mobile__results");
-        searchMobileResults.innerHTML = "";
+        this.searchModalResults.classList.remove("search-modal__results--active");
+        this.searchModalResults.innerHTML = "";
         return;
       }
+      this.searchModalResults.classList.add("search-modal__results--active");
       await this.searchPlant(value);
     });
 
-    searchInputCloseBtn.addEventListener("click", (e)=> {
+    this.searchInputCloseBtn.addEventListener("click", (e)=> {
       e.preventDefault();
-      searchMobile.classList.remove("search-mobile--active");
+      this.searchModal.classList.remove("search-modal--active");
+     
       setTimeout(()=>{
-        searchMobile.classList.remove("search-mobile--visible");        
+        this.searchModal.classList.remove("search-modal--visible");        
       }, 225);
-      this.clearInputValue(queryInput);
-      // queryInput.value = "";
-      const searchMobileResults = document.querySelector(".search-mobile__results");
-      this.clearResultsList(searchMobileResults);
-      // searchMobileResults.innerHTML = "";
-      // document.querySelector(".search-mobile").classList.remove("search-mobile--active");
-      // searchMobileContainer.classList.remove("search-mobile__container--active");
+      
+      this.clearInputValue(this.queryInput);
+      this.clearResultsList(this.searchModalResults);
+      
     })
 
 
   }
 
   clearInputValue(input){
+    
     input.value = "";
   }
 
-  clearResultsList(list){
-    list.innerHTML = "";
+  clearResultsList(resultsList){
+    
+    resultsList.innerHTML = "";
   }
   
   async searchPlant(value){
 
     const data = await this.api.getDataByName("Plant", "getallbyname", value);
     const results = await this.render.renderUserSearchResults(data);
-    
-    const searchMobileResults = document.querySelector(".search-mobile__results");
-    searchMobileResults.innerHTML = results;
-    
-    
-    
+    this.searchModalResults.innerHTML = results;
+
   }
   async getPlanstData(currentPage, ItemsPerPage) {
     const request = await this.api.getData("plant", "getAll", [
@@ -91,7 +85,7 @@ export class Plants extends BaseEntity {
     ]);
     const data = request.data;
 
-    await this.render.renderPlantsList(data, this.listBody);
+    await this.render.renderPlantsList(data, this.tableBody);
 
     return data;
   }
@@ -128,8 +122,3 @@ const DEFAULT_NUMBER_OF_ITEMS = 10;
 const app = new Plants(searchParamsValue, new Api(), new Render());
 app.getPlanstData(DEFAULT_PAGE, DEFAULT_NUMBER_OF_ITEMS);
 // document.querySelector(".pagination__per-page").addEventListener('change', ()=> app.showPlantsPerPage())
-
-//PRZENIESC SERCHBAR Z GLOWNEJ STRONY DO HEADERA OBOK MENU HAMBURGER JAKO ROzWIJANY SEARCH LUB SEARCH
-//GDY W HEADERZE UZYTKOWNIK KLIKA IKONKE LUPY OTWIERA SIE NOWY "MODAL" Z OPCJAMI WYSZUKIWANIA NA CALA STRONE 
-// PODOBNIE ZMIENIC ABY TAK SAMO WYGLADALO WYSZUKKIWANIE OGRODOW W ADD NEW PLANT
-//wywalic border-radiusy z headera a z kartę do dodawania roslin zrobić na cale okno bez radiusow cos na wzor justjoin.it/more filters

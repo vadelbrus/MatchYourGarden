@@ -1,0 +1,16 @@
+.per-page-select {
+    height: 30px;
+    position: absolute;
+    z-index: 10;
+    right: 5px;
+    top: 5px;
+    font-size: $fs-ms;
+
+    @include breakpoint(xs) {
+      font-size: $fs-md;
+    }
+
+    @include breakpoint(sm) {
+      font-size: $fs-lg;
+    }
+  }

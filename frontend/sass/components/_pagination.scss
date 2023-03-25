@@ -1,0 +1,97 @@
+.pagination {
+    width: 300px;
+    margin-top: 10px;
+    font-size: $fs-sm;
+    @include breakpoint(xs) {
+      width: 380px;
+      font-size: 1.3rem;
+    }
+  
+    @include breakpoint(md) {
+      width: 440px;
+      font-size: $fs-md;
+    }
+  
+    &__container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 30px;
+    }
+  
+    &__inner {
+      display: flex;
+      align-items: center;
+      width: 275px;
+      margin-right: 5px;
+  
+      @include breakpoint(xs) {
+        width: 300px;
+      }
+  
+      @include breakpoint(md) {
+        width: 400px;
+      }
+    }
+  
+    &__info {
+      font-size: $fs-sm;
+      // @include breakpoint(xs) {
+      //     font-size: $fs-sm;
+      // }
+  
+      @include breakpoint(md) {
+        font-size: $fs-ms;
+      }
+    }
+  
+    &__pages {
+      display: flex;
+      align-items: center;
+    }
+  
+    &__page,
+    &__button {
+      min-width: 25px;
+      height: 25px;
+      margin: 0 2px;
+      background-color: none;
+      border: none;
+      font-size: $fs-sm;
+      text-align: center;
+  
+      @include breakpoint(xs) {
+        margin: 0 5px;
+      }
+  
+      @include breakpoint(md) {
+        margin: 6px;
+        font-size: $fs-ms;
+      }
+  
+      &--active {
+        color: #fff;
+        background-color: green;
+      }
+  
+      &--hide {
+        display: none;
+      }
+  
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  
+    &__dots {
+      display: block;
+      min-width: 25px;
+      height: 25px;
+      line-height: 25px;
+      text-align: center;
+      // font-size: $fs-sm;
+    }
+  
+
+  }
+  

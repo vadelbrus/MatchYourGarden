@@ -1,0 +1,30 @@
+.main-select {
+    margin: 0 auto;
+    height: calc(100vh - 60px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    &__select {
+      width: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      @include breakpoint(md) {
+        width: 480px;
+      }
+    
+      @include breakpoint(lg) {
+        width: 576px;
+      }
+  
+      @include breakpoint(xl) {
+        width: 768px;
+      }
+    
+   
+    }
+  
+
+  }

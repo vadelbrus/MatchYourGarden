@@ -1,0 +1,43 @@
+.nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    transform: translateX(100%);
+    background-color: $color-green-alpha-100;
+    z-index: 0;
+    transition: transform 0.15s ease-in-out;
+  
+    &--is-active {
+      transform: translateX(0);
+      z-index: 1100;
+    }
+  
+    &__inner {
+      height: 100%;
+    }
+
+    &__title{
+      
+      padding: 10px 0px;      
+      text-align: center;
+      font-size: 2rem;
+      color: white
+    }
+  
+    &__list {
+      height: 100%;
+      width: 150px;
+    }
+  
+    &__link {
+      display: inline-block;
+      width: 100%;
+      padding: 5px 15px;
+      font-size: $fs-xl;
+      color: $color-white-alpha-100;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+  }

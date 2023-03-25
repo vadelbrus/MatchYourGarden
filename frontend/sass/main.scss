@@ -1,0 +1,38 @@
+// ABSTRACTS
+@import "../sass/abstracts/_vars.scss";
+@import "../sass/abstracts/_media-queries.scss";
+@import "../sass/abstracts/_mixins.scss";
+
+//BASE
+
+@import "../sass/base/_reset.scss";
+
+// TYPOGRAPHY
+
+@import "../sass/base/typography";
+
+//COMPONENTS
+@import "../sass/components/_nav-btn.scss";
+@import "../sass/components/_search-bar.scss";
+@import "../sass/components/_link.scss";
+@import "../sass/components/_pagination.scss";
+@import "../sass/components/_per-page.scss";
+@import "../sass/components/_table.scss";
+@import "../sass/components/_select-button.scss";
+@import "../sass/components/_search-modal.scss";
+
+//LAYOUT
+@import "../sass/layout/_header.scss";
+@import "../sass/layout/_navigation.scss";
+@import "../sass/layout/_footer.scss";
+
+
+//PAGES
+
+@import "../sass/pages/_home.scss";
+@import "../sass/pages/_garden-card.scss";
+@import "../sass/pages/_gardens.scss";
+@import "../sass/pages/_new-plant-card.scss";
+@import "../sass/pages/_plant-card.scss";
+@import "../sass/pages/_user.scss";
+@import "../sass/pages/_plants.scss";

@@ -1,0 +1,64 @@
+.panel {
+    height: calc(100vh - 140px);
+    margin: 70px 10px 10px;
+    border-radius: 10px;
+    background-color: $color-pink-alpha-100;
+  
+    &__inner {
+      display: flex;
+      justify-content: center;
+    }
+  
+    &__add-form {
+      display: none;
+      padding-top: 10px;
+  
+      &--block {
+        display: block;
+      }
+    }
+  
+    &__list {
+      margin: 0 auto;
+      // display: flex;
+      // justify-content: space-evenly;
+      // flex-wrap: wrap;
+      width: 300px;
+      padding: 5px;
+      text-align: left;
+  
+      @include breakpoint(xs) {
+        width: 380px;
+        // text-align: center;
+      }
+  
+      @include breakpoint(sm) {
+        width: 400px;
+      }
+  
+      @include breakpoint(sm) {
+        width: 440px;
+      }
+    }
+  
+    &__list-item {
+      // flex-basis: 60px;
+      display: inline-block;
+      width: 60px;
+      padding: 5px;
+      margin: 5px;
+      background-color: $color-white-alpha-100;
+      border-radius: 10px;
+      text-align: center;
+      color: $color-dark-alpha-80;
+      box-shadow: 0 4px 8px 0px rgba($color: #000000, $alpha: 0.3);
+      cursor: pointer;
+  
+      &:hover {
+        background-color: $color-green-alpha-60;
+        color: $color-white-alpha-100;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+    }
+  }

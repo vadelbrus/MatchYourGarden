@@ -1,0 +1,13 @@
+.garden-card {
+
+    position: relative;
+    background-color: $color-white-alpha-90;
+
+    &--hidden {
+      overflow: hidden;
+    }
+
+    &__main {
+        margin-top: 120px;
+    }
+  }

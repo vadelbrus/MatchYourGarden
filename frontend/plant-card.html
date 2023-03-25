@@ -7,28 +7,42 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/sass/main.css">
+    <script type="module" src="./js/menu.js" defer ></script>
     <script type="module" src="/js/components/PlantDetails.js" defer ></script>
     <title>Match Your Garden</title>
 </head>
-<body class="page-card">
-    <div class="page-card__wrapper">
+<body class="page plant-card">
+    <div class="plant-card__wrapper">
+        <nav class="plant-card__nav nav">
+            <div class="nav__inner">
+                <p class="nav__title">MATCH YOUR GARDEN</p>
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="/index.html" class="nav__link">Home</a></li>
+                    <li class="nav__item"><a href="/plants.html" class="nav__link">Plants</a></li>
+                    <li class="nav__item"><a href="/gardens.html" class="nav__link">Garden</a></li>
+                    <li class="nav__item"><a href="/user.html" class="nav__link">Login</a></li>
+                </ul>
+            </div>
+        </nav>
         <header class="header">
              <a target="_self" href="/index.html" class="header__logo-link">
                 <img src="/img/logo-clover.png" alt="logo-icon" class="header__image">
             </a>
             <h1 class="header__title">Match your garden!</h1>
             <button class="header__hamburger hamburger">
-                <span class="hamburger__box">
-                    <span class="hamburger__inner"></span>
-                </span>                
+                <div class="hamburger__inner">
+                    <span class="hamburger__bar hamburger__bar"></span>
+                    <span class="hamburger__bar"></span>
+                    <span class="hamburger__bar"></span>
+                </div>
             </button>
         </header>
-        <main class="page-card__main main-card">
-            <section class="page-card__section main-card">
+        <main class="plant-card__main main-card">
+            <section class="plant-card__section main-card">
             </section>
         </main>
-        <footer class="page-card__footer footer">
+        <footer class="plant-card__footer footer">
             <p class="footer__title">Special thanks to Neveride</p>
         </footer>
     </div>

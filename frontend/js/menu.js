@@ -14,7 +14,7 @@ export const handleMenu = (btn, nav, page, wrapper) => {
     });
 
     wrapper.onclick = (e)=> {
-        if(e.target.classList !="nav__list") {
+        if(e.target.classList !="nav__item") {
         
         btn.classList.remove("hamburger--is-active");
         nav.classList.remove("nav--is-active");

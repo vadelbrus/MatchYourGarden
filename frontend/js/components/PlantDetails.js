@@ -6,7 +6,7 @@ export class PlantDetails {
     this.value = value;
     this.api = api;
     this.baseEntity = baseEntity;
-    this.selector = document.querySelector(".page-card__section");
+    this.selector = document.querySelector(".plant-card__section");
   }
 
   async getPlantDataFromApi() {

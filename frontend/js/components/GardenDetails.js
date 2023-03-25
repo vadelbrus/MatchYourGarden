@@ -6,7 +6,7 @@ export class GardenDetails {
     this.value = value;
     this.api = api;
     this.baseEntity = baseEntity;
-    this.selector = document.querySelector(".page-card__section");
+    this.selector = document.querySelector(".garden-card__section");
   }
 
   async getGardenDataFromApi() {
@@ -18,7 +18,7 @@ export class GardenDetails {
     const response = await this.getGardenDataFromApi();
     const data = response.data;
 
-    return (this.selector.innerHTML = `<article class="main__card card">
+    return (this.selector.innerHTML = `<article class="garden-card__card card">
             <div class="card__title-group">
                 <h2 class="card__title">${data.name}</h2>
                 <p class="card__info"><span class="card__author"></span><time class="card__date">${data.dateCreated}</time></p>

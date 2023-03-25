@@ -6,26 +6,27 @@ constructor(api){
 this.api = api;
 this.gardens = [];
 
+this.page = document.querySelector(".page-new-plant");
 this.form = document.querySelector('.form');
 this.searchBox = document.querySelector('.form__search-box');
-this.promptFields = document.querySelector(".search-mobile__prompts");
-this.msgContainer = document.querySelector(".section-new-plant__inner");
+this.promptFields = document.querySelector(".search-modal__prompts");
+this.msgContainer = document.querySelector(".page-new-plant__inner");
 this.submitFormBtn = document.querySelector(".form__button");
 this.resetFormBtn = document.querySelector(".form__btn-reset");
-this.searchMobile = document.querySelector(".search-mobile");
-this.confirmButton = document.querySelector(".search-mobile__confirm-btn");
-this.clearButton = document.querySelector(".search-mobile__clear-btn");
+this.searchModal = document.querySelector(".search-modal");
+this.confirmButton = document.querySelector(".search-modal__confirm-btn");
+this.clearButton = document.querySelector(".search-modal__clear-btn");
 this.formResultsList = document.querySelector(".form__results-list");
-this.mobileResultsList = document.querySelector(".search-mobile__results");
-this.searchMobileCloseBtn = document.querySelector(".search-mobile__close-btn");
-this.queryInput = document.querySelector(".search-mobile__query");
+this.modalResultsList = document.querySelector(".search-modal__results");
+this.searchModalCloseBtn = document.querySelector(".search-modal__close-btn");
+this.queryInput = document.querySelector(".search-modal__query");
 this.alertDelay = 750;
 
-//APPEND DOM ELEMENTS LISTENERS
+//APPEND DOM EVENTS LISTENERS
 
 this.promptFields.addEventListener('click', (e)=> {
   
-  if (e.target.classList.contains("search-mobile__prompt")) this.addNewPromptToList(e);
+  if (e.target.classList.contains("search-modal__prompt")) this.addNewPromptToList(e);
   
 });
 
@@ -37,11 +38,11 @@ this.formResultsList.addEventListener("click", (e)=>{
     this.gardens = this.gardens.filter(garden => garden.id != id);
     e.target.parentNode.remove();
     
-    this.mobileResultsList.innerHTML = this.gardens.map((garden => {
-      return `<li class="search-mobile__result" data-id="${garden.id}">
-      <span class="form__result-text">${garden.name}</span>
-      <button type="button" class="search-mobile__remove-btn button">
-      <i class="fa-solid fa-xmark fa-xl search-mobile__close-mark"></i>
+    this.modalResultsList.innerHTML = this.gardens.map((garden => {
+      return `<li class="search-modal__result" data-id="${garden.id}">
+      <span class="search-modal__result-text">${garden.name}</span>
+      <button type="button" class="search-modal__remove-btn button">
+      <i class="fa-solid fa-xmark fa-xl search-modal__close-mark"></i>
       </button>
       </li>`
     })).join("");
@@ -50,17 +51,17 @@ this.formResultsList.addEventListener("click", (e)=>{
 })
 
 
-this.mobileResultsList.addEventListener("click", (e)=> {
+this.modalResultsList.addEventListener("click", (e)=> {
   e.preventDefault();
   
-  if(e.target.classList.contains("search-mobile__remove-btn")) {
+  if(e.target.classList.contains("search-modal__remove-btn")) {
 
     e.target.parentNode.remove();
     this.formResultsList.innerHTML = this.gardens.map((garden => {
       return `<li data-id="${garden.id}">
       <span class="form__result-text">${garden.name}</span>
       <button type="button" class="form__result-remove button">
-      <i class="fa-solid fa-xmark fa-xl search-mobile__close-mark"></i>
+      <i class="fa-solid fa-xmark fa-xl form__close-mark"></i>
       </button>
       </li>`
       
@@ -71,7 +72,7 @@ this.mobileResultsList.addEventListener("click", (e)=> {
 
 this.confirmButton.addEventListener("click", (e)=> {
   e.preventDefault();
-  const userGardens = [...this.mobileResultsList.querySelectorAll("[data-id]")];
+  const userGardens = [...this.modalResultsList.querySelectorAll("[data-id]")];
   this.gardens = userGardens.map(garden => {
     return { 
 
@@ -79,13 +80,14 @@ this.confirmButton.addEventListener("click", (e)=> {
       name: garden.innerText
 
     }
+
   } );
 
   
   this.formResultsList.innerHTML = this.gardens.map((garden => {
     return `<li data-id="${garden.id}"><span class="form__result-text">${garden.name}</span>
     <button type="button" class="form__result-remove button">
-    <i class="fa-solid fa-xmark fa-xl search-mobile__close-mark"></i>
+    <i class="fa-solid fa-xmark fa-xl form__close-mark"></i>
     </button>
     </li>`
     
@@ -100,7 +102,7 @@ this.confirmButton.addEventListener("click", (e)=> {
 
 this.clearButton.addEventListener("click", (e)=> {
   e.preventDefault();
-  this.clearMobileSearchFields();
+  this.clearModalSearchFields();
   
 
   
@@ -115,18 +117,18 @@ this.searchBox.addEventListener("click", ()=> {
   this.queryInput.value = "";
   
   
-  this.searchMobile.classList.toggle("search-mobile--active");
-  this.searchMobile.classList.toggle("search-mobile--visible");
+  this.searchModal.classList.toggle("search-modal--active");
+  this.searchModal.classList.toggle("search-modal--visible");
 });
 
-this.searchMobileCloseBtn.addEventListener("click", (e)=> {
+this.searchModalCloseBtn.addEventListener("click", (e)=> {
   e.preventDefault();
   this.queryInput.value = "";
-  this.mobileResultsList.innerHTML = this.gardens.map((garden => {
-    return `<li class="search-mobile__result" data-id ="${garden.id}">
-    <span class="search-mobile__result-text" >${garden.name}</span>
-    <button class="search-mobile__remove-btn button">
-      <i class="fa-solid fa-xmark fa-xl search-mobile__close-mark"></i>
+  this.modalResultsList.innerHTML = this.gardens.map((garden => {
+    return `<li class="search-modal__result" data-id ="${garden.id}">
+    <span class="search-modal__result-text" >${garden.name}</span>
+    <button class="search-modal__remove-btn button">
+      <i class="fa-solid fa-xmark fa-xl search-modal__close-mark"></i>
     </button>
   </li>`
     
@@ -139,8 +141,8 @@ this.searchMobileCloseBtn.addEventListener("click", (e)=> {
 this.queryInput.addEventListener("keyup", async (e)=> {
     if(e.target.value.length < 3) {
 
-      this.promptFields.classList.remove("search-mobile__prompts--active");
-      this.mobileResultsList.classList.add("search-mobile__results--active");
+      this.promptFields.classList.remove("search-modal__prompts--active");
+      this.modalResultsList.classList.add("search-modal__results--active");
       this.handleRemovePrompts();
     return
   };
@@ -161,26 +163,26 @@ this.form.addEventListener("submit", async (e)=> {
 
 
 toggleSearch(){
-  this.searchMobile.classList.toggle("search-mobile--active");
+  this.searchModal.classList.toggle("search-modal--active");
   setTimeout(()=>{
-    this.searchMobile.classList.remove("search-mobile--visible");        
+    this.searchModal.classList.remove("search-modal--visible");        
   }, 225);
 }
 
 addNewPromptToList(e) {
   
   const promptTemplate = `
-        <li class="search-mobile__result" data-id ="${e.target.dataset.id}">
-          <span class="search-mobile__result-text" >${e.target.innerText}</span>
-          <button class="search-mobile__remove-btn button">
-            <i class="fa-solid fa-xmark fa-xl search-mobile__close-mark"></i>
+        <li class="search-modal__result" data-id ="${e.target.dataset.id}">
+          <span class="search-modal__result-text" >${e.target.innerText}</span>
+          <button class="search-modal__remove-btn button">
+            <i class="fa-solid fa-xmark fa-xl search-modal__close-mark"></i>
           </button>
         </li>`;
           
       
-      this.mobileResultsList.insertAdjacentHTML("beforeend", promptTemplate);
-      this.mobileResultsList.classList.add("search-mobile__results--active");
-      this.promptFields.classList.remove("search-mobile__prompts--active");
+      this.modalResultsList.insertAdjacentHTML("beforeend", promptTemplate);
+      this.modalResultsList.classList.add("search-modal__results--active");
+      this.promptFields.classList.remove("search-modal__prompts--active");
 
 
 }
@@ -202,7 +204,7 @@ async populatePromptList(data){
   
   const propmtsListHtml = data.map(element => {
     return `
-    <button class="search-mobile__prompt" 
+    <button class="search-modal__prompt" 
     type="button"
     data-id="${element.id}">
     ${element.name}
@@ -233,18 +235,18 @@ disablePrompts(prompts, results, selector){
 async showPrompts(val) {
   const response = await this.searchGardens(val);
   const data = response.data;
-  
+  console.log(data)
   if(data.length === 0) { 
     this.handleRemovePrompts();
     return;
   }
   
-  this.promptFields.classList.add("search-mobile__prompts--active");
-  this.mobileResultsList.classList.remove("search-mobile__results--active");
+  this.promptFields.classList.add("search-modal__prompts--active");
+  this.modalResultsList.classList.remove("search-modal__results--active");
   
   await this.populatePromptList(data);
-  const prompts = [...document.querySelectorAll(".search-mobile__prompt")];
-  const results = [...document.querySelectorAll(".search-mobile__result")].map(result=> result.dataset.id );
+  const prompts = [...document.querySelectorAll(".search-modal__prompt")];
+  const results = [...document.querySelectorAll(".search-modal__result")].map(result=> result.dataset.id );
   this.disablePrompts(prompts, results, this.promptFields);
 
 }
@@ -255,19 +257,10 @@ async addNewPlant(){
   //GET USER INPUT DATA
   const plantName = document.querySelector('.form__name-input');
   const plantLatinName = document.querySelector('.form__latin-input');
-  const tabs = [...this.form.querySelectorAll('.form__tab')];
-
-  //POPULATE LIST OF GARDENS ARRAY OF OBJECTS
-  const gardensList = tabs.map( tab => {
-    return {
-      id: tab.dataset.gardenId,
-      name: tab.textContent,
-    }
-  } );
-
+  
   //CHECK IF USER CHOOSE AT LEAST ONE GARDEN
 
-  if(gardensList.length === 0) {
+  if(this.gardens.length === 0) {
     this.showSearchBoxNegativeMessage();
     return;
   }
@@ -277,14 +270,15 @@ async addNewPlant(){
    const newPlantData = {
     name: plantName.value,
     latinName: plantLatinName.value,
-    gardens: gardensList,
+    gardens: this.gardens,
+    iamges: []
   }
 
   try {
     const response = await this.api.postData('plant', 'create', newPlantData);
     const data = await response.data;
     this.showSuccesCard(data);
-    this.clearFormFields();
+    this.resetFormFields();
    
     
   } catch (error) {
@@ -293,12 +287,12 @@ async addNewPlant(){
  
 }
 
-clearMobileSearchFields(){
+clearModalSearchFields(){
   this.gardens = [];
   this.queryInput.value = "";
   this.searchBox.value = "";
   this.promptFields.innerHTML = "";
-  this.mobileResultsList.innerHTML = "";
+  this.modalResultsList.innerHTML = "";
   this.formResultsList.innerHTML = "";
   
 }
@@ -309,7 +303,7 @@ resetFormFields(){
   const plantLatinName = document.querySelector('.form__latin-input');
  
   this.formResultsList.innerHTML = "";
-  this.mobileResultsList.innerHTML = "";
+  this.modalResultsList.innerHTML = "";
   this.searchBox.value = "";
   plantName.value = "";
   plantLatinName.value = "";
@@ -321,9 +315,9 @@ successMessageTemplate(data){
   <div class="section-new-plant__popup">
   <div class= "section-new-plant__popup-inner">
     <p class="section-new-plant__popup-title">You have succesfully added new plant to database!</p>
-    <p class="section-new-plant__popup-name">${data.name}</p>
-    <p class="section-new-plant__popup-latin-name">(${data.latinName})</p>
-    <p class="section-new-plant__popup-gardens">${data.gardens.map(garden => garden.name).join(", ")}</p>
+    <p class="section-new-plant__popup-name">Plant name: ${data.name}</p>
+    <p class="section-new-plant__popup-latin-name">Latin name: (${data.latinName})</p>
+    <p class="section-new-plant__popup-gardens">Assigned gardens: ${data.gardens.map(garden => garden.name).join(", ")}</p>
     <button class="section-new-plant__popup-btn">Close</button>
   </div>
 </div>
@@ -336,8 +330,11 @@ showSuccesCard(data){
     const popup = document.querySelector(".section-new-plant__popup");
     const popupBtn = document.querySelector(".section-new-plant__popup-btn");
     popup.classList.add("section-new-plant__popup--active");
+    this.page.classList.toggle("page--hidden");
+    
     popupBtn.addEventListener("click", ()=> {
     popup.classList.remove("section-new-plant__popup--active");
+    this.page.classList.toggle("page--hidden");
     popup.remove();
   })
   

@@ -1,0 +1,59 @@
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 60px;
+    flex-direction: column;
+    width: 100vw;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    background-color: $color-green-alpha-100;
+  
+    &__inner {
+      display: flex;
+      align-items: center;
+      height: 60px;
+    }
+  
+    &__logo-link {
+      display: block;
+      position: absolute;
+      top: 0;
+      transform: translateY(25%);
+      left: 8px;
+    }
+  
+    &__image {
+      width: 40px;
+      height: 40px;
+      display: block;
+      color: $color-white-alpha-100;
+  
+  
+    }
+  
+    &__title {
+      font-size: $fs-xl;
+      text-transform: uppercase;
+      color: $color-blue-alpha-100;
+  
+      @include breakpoint(xs) {
+        font-size: $fs-xl;
+      }
+  
+      @include breakpoint(sm) {
+        font-size: $fs-xxl;
+      }
+    }
+  
+    &__hamburger {
+      right: 8px;
+      top: 15px;
+      position: absolute;
+      z-index: 200;
+    }
+    
+  }

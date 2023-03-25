@@ -7,17 +7,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/style.css">
-    <script type="module" src="/js/menu.js" defer ></script>
-    <script type="module" src="/js/components/Gardens.js" defer ></script>
-    
-    <!-- <script type="module" src="/js/main.js" defer ></script> -->
-    <title>PLANTS</title>
+    <script src="https://kit.fontawesome.com/8b819227a6.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./sass/main.css">
+    <script type="module" src="./js/menu.js" defer ></script>
+    <script type="module" src="./js/components/Gardens.js" defer ></script>
+    <title>gardens</title>
 </head>
-<body class="page">
-    <div class="page__wrapper">
-        <nav class="page__nav nav">
+<body class="page page-gardens">
+    <div class="page-gardens__wrapper">
+        <nav class="page-gardens__nav nav">
             <div class="nav__inner">
+                <p class="nav__title">MATCH YOUR GARDEN</p>
                 <ul class="nav__list">
                     <li class="nav__item"><a href="/index.html" class="nav__link">Home</a></li>
                     <li class="nav__item"><a href="/plants.html" class="nav__link">Plants</a></li>
@@ -26,7 +26,8 @@
                 </ul>
             </div>
         </nav>
-        <header class="header">
+        <header class="page-gardens__header header">
+            <div class="header__inner">
              <a target="_self" href="/index.html" class="header__logo-link">
                 <img src="/img/logo-clover.png" alt="logo-icon" class="header__image">
             </a>
@@ -38,42 +39,62 @@
                     <span class="hamburger__bar"></span>
                 </div>
             </button>
+        </div>
         </header>
-        <main class="page__main main">
-                <div role="search" class="main__search search-box">
-                    <input aria-label="search" type="search" placeholder="Type plant id or name" class="search-box__text">
-                    <button aria-label="search" id="search-button" class="search-box__button"></button>
+        <main class="gardens-main">
+         <div class="gardens-main__actions">
+            <div role="search" class="gardens-main__search search-box">
+                <input aria-label="search" type="search" placeholder="Search garden..." class="search-box__query">
+                <button aria-label="search" id="search-button" class="search-box__button"></button>
+            </div>
+        </div>
+          <section class="gardens-section">
+            <div class="gardens-section__container">
+                <div class="gardens-section__table-content table-content">
+                    <select class="table-content__per-page per-page-select" autocomplete = "off">
+                        <option class="per-page-select__option" value="5">5</option>
+                        <option class="per-page-select__option" value="10" selected>10</option>
+                        <option class="per-page-select__option" value="15">15</option>
+                        <option class="per-page-select__option" value="20">20</option>
+                    </select>
+                    <table class="gardens-section__table table-content__table">
+                        <thead class="table-content__header">
+                            <tr class="table-content__row">
+                                <td class="table-content__row-cell table-content__head-cell">Name</td>
+                                <td class="table-content__row-cell table-content__head-cell">Latin name</td>
+                                <td class="table-content__row-cell table-content__head-cell"></td>
+                                
+                            </tr>
+                        </thead>
+                        <tbody class="table-content__body"></tbody>
+                    </table>
+                    <nav class="table-content__pagination pagination">
+                        <div class="pagination__container"></div>
+                    </nav>
                 </div>
-                <a href="/new-garden-card.html" class="main__add-button button" >Add new garden</a>
-        <section class="page__section section">
-            <div class="section__container">
-                <select class="pagination__per-page" autocomplete = "off">
-                    <option value="5">5</option>
-                    <option value="10" selected>10</option>
-                    <option value="15">15</option>
-                    <option value="20">20</option>
-                  </select>
-                <table class="section__table list">
-                    <thead class="list__header">
-                           <tr class="list__row">
-                            <td class="list__row-cell list__head-cell">Name</td>
-                            <!-- <td class="list__row-cell list__head-cell">Latin name</td> -->
-                            <td class="list__row-cell list__head-cell"></td>
-                        </tr>
-                    </thead>
-                    <tbody class="list__body"></tbody>
-                </table>
-                <nav class="section__pagination pagination">
-                    <div class="pagination__container"></div>
-                </nav>
             </div>
                       
         </section>
         </main>
-        <footer class="page__footer footer">
+        <footer class="page-gardens__footer footer">
             <p class="footer__title">Special thanks to Neveride</p>
         </footer>
+        <div class="page-gardens__search-modal search-modal">
+            <div class="search-modal__container">
+            <div class="search-modal__header">
+                <p class="search-modal__title">Search</p>
+                <button class="search-modal__close-btn"><i class="fa-solid fa-xmark fa-2xl search-modal__close-mark"></i></button>
+            </div>
+            <div class="search-modal__query-container">
+                <input aria-label="search" type="search" autocomplete="off" placeholder="Type name or id..." class="search-modal__query">
+                <i class="fa-solid fa-magnifying-glass fa-2xl search-modal__glass"></i>
+            </div>
+            <ul class="search-modal__results"></ul>            
+        </div>
     </div>
+        
+    </div>
+    
     
 </body>
 </html>

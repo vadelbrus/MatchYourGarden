@@ -7,29 +7,43 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/sass/main.css">
+    <script type="module" src="./js/menu.js" defer ></script>
     <script type="module" src="/js/components/NewPlant.js" defer ></script>
     <script src="https://kit.fontawesome.com/8b819227a6.js" crossorigin="anonymous"></script>
     <title>Match Your Garden</title>
 </head>
-<body class="page">
-    <div class="page__wrapper">
-        <header class="header">
+<body class="page-new-plant">
+    <div class="page-new-plant__wrapper">
+        <nav class="page-new-plant__nav nav">
+            <div class="nav__inner">
+                
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="/index.html" class="nav__link">Home</a></li>
+                    <li class="nav__item"><a href="/plants.html" class="nav__link">Plants</a></li>
+                    <li class="nav__item"><a href="/gardens.html" class="nav__link">Garden</a></li>
+                    <li class="nav__item"><a href="/user.html" class="nav__link">Login</a></li>
+                </ul>
+            </div>
+        </nav>
+        <header class="page-new-plant__header header">
              <a target="_self" href="/index.html" class="header__logo-link">
                 <img src="/img/logo-clover.png" alt="logo-icon" class="header__image">
             </a>
             <h1 class="header__title">Match your garden!</h1>
             <button class="header__hamburger hamburger">
-                <span class="hamburger__box">
-                    <span class="hamburger__inner"></span>
-                </span>                
+                <div class="hamburger__inner">
+                    <span class="hamburger__bar hamburger__bar"></span>
+                    <span class="hamburger__bar"></span>
+                    <span class="hamburger__bar"></span>
+                </div>
             </button>
         </header>
         <main class="page-new-plant__main">
-            <section class="page-new-plant__section section-new-plant">
-                <div class="section-new-plant__container">
-                    <div class="section-new-plant__inner">
-                        <!-- section-new-plant__form -->
+            <section class="page-new-plant__section">
+                <div class="page-new-plant__container">
+                    <div class="page-new-plant__inner">
+                        
                         <form  class="form" autocomplete="off">
                             <div class="form__group">
                             <label for="name" class="form__label ">Plant name</label>
@@ -40,44 +54,39 @@
                             <input id="latin" class="form__input form__latin-input" required type="text">
                             </div>
                             <div class="form__group">
-                                <!-- <ul class="form__tab-list"> -->
-                                    
-                                </ul>
                                 <div class="form__search-container">
                                     <div class="form__search">
                                         <input type="text" placeholder="Search gardens..." class="form__search-box">
                                         <i class="fa-solid fa-magnifying-glass form__search-icon"></i>
                                     </div>
-                                    <ul class="form__results-list"></ul>
-
+                                    <ul class="form__results-list">
                                 </div>
                             </div>
                             <div class="form__buttons-controll">
-                                <button class="form__button form__submit-btn" type="submit" >Add new plant</button>
-                                <button class="form__button form__btn-reset" type="button" >Reset</button>
+                                <button class="form__button form__submit-btn" type="submit">Add new plant</button>
+                                <button class="form__button form__btn-reset" type="button">Reset</button>
                             </div>
                             
                         </form>
                   
                     </div>
                 </div>
-                <div class="search-mobile">
-                    
-                        <div class="search-mobile__header">
-                            <p class="search-mobile__title">Search</p>
-                            <button class="search-mobile__close-btn"><i class="fa-solid fa-xmark fa-2xl search-mobile__close-mark"></i></button>
+                <div class="search-modal">
+                        <div class="search-modal__header">
+                            <p class="search-modal__title">Search</p>
+                            <button class="search-modal__close-btn"><i class="fa-solid fa-xmark fa-2xl search-modal__close-mark"></i></button>
                         </div>
-                        <div class="search-mobile__query-container">
-                            <input aria-label="search" type="search" placeholder="Type name or id..." class="search-mobile__query">
-                            <i class="fa-solid fa-magnifying-glass fa-2xl search-mobile__glass"></i>
+                        <div class="search-modal__query-container">
+                            <input aria-label="search" type="search" placeholder="Type name or id..." class="search-modal__query">
+                            <i class="fa-solid fa-magnifying-glass fa-2xl search-modal__glass"></i>
                         </div>
-                        <div class="search-mobile__controll">
-                            <ul class="search-mobile__results"></ul>       
-                            <ul class="search-mobile__prompts"></ul>
+                        <div class="search-modal__controll">
+                            <ul class="search-modal__results"></ul>       
+                            <ul class="search-modal__prompts"></ul>
                         </div>
-                        <div class="search-mobile__actions-container">
-                            <button class="search-mobile__confirm-btn">Accept</button>
-                            <button class="search-mobile__clear-btn">Clear</button>
+                        <div class="search-modal__actions-container">
+                            <button class="search-modal__confirm-btn">Accept</button>
+                            <button class="search-modal__clear-btn">Clear</button>
                         </div>
                     
                 </div>
